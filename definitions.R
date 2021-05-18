@@ -9,6 +9,7 @@
 #########################################################################################################
 # Function names for IPL  batsman analysis
 batsmanFuncs <- c("Batsman Runs vs. Deliveries",
+                        "Batsman 4s & 6s",
                        "Dismissals of batsman",
                        "Batsman's Runs vs Strike Rate",
                        "Batsman's Moving Average",

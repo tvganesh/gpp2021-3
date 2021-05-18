@@ -36,14 +36,19 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                           sidebarPanel(
                                             selectInput('batsmanFuncIPL', 'Select function', batsmanFuncs),
                                             selectInput('batsmanIPL', 'Select batsman', IPLBatsmen,selectize=FALSE, size=20),
-                                            radioButtons("staticIntv", label = h4("Static or Interactive"),
+                                            radioButtons("staticIntv", label = h4("Plot type"),
                                                          choices = c("static" = 1, "interactive" = 2),
                                                          selected = 1,inline=T)
                                           ),
                                           mainPanel(
                                                   uiOutput('batsmanPlotIPL'),
 
-                                            column(7, offset=4,
+                                                   column(12, offset=6,
+                                                   br(),
+                                                   br(),
+                                                   br(),
+                                                   br(),
+                                                   br(),
                                                    tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                    tags$h5((tags$i("Feb 6, 2021"))),
                                                    tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -59,13 +64,21 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
 
                                           sidebarPanel(
                                             selectInput('bowlerFuncIPL', 'Select function', bowlerFuncs),
-                                            selectInput('bowlerIPL', 'Select IPL bowler', IPLBowlers,selectize=FALSE, size=20)
+                                            selectInput('bowlerIPL', 'Select IPL bowler', IPLBowlers,selectize=FALSE, size=20),
+                                            radioButtons("staticIntv1", label = h4("Plot type"),
+                                                         choices = c("static" = 1, "interactive" = 2),
+                                                         selected = 1,inline=T)
 
 
                                           ),
                                           mainPanel(
-                                            plotOutput('bowlerPlotIPL'),
-                                            column(7, offset=4,
+                                                   uiOutput('bowlerPlotIPL'),
+                                                   column(12, offset=6,
+                                                   br(),
+                                                   br(),
+                                                   br(),
+                                                   br(),
+                                                   br(),
                                                    tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                    tags$h5((tags$i("Feb 6, 2021"))),
                                                    tags$h6("Data source Cricsheet: http://cricsheet.org/"),

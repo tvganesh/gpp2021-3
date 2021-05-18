@@ -106,23 +106,25 @@ analyzeBatsmen <- function(batsman,func, t20type="IPL",staticIntv) {
     print(dim(batsmanDF))
     # Call the approporiate function
     if(func == "Batsman Runs vs. Deliveries"){
-        batsmanRunsVsDeliveries(batsmanDF,batsman)
+        batsmanRunsVsDeliveries(batsmanDF,batsman,staticIntv)
+    } else if (func == "Batsman 4s & 6s"){
+        batsmanFoursSixes(batsmanDF,batsman,staticIntv)
     } else if (func == "Predict runs of batsman"){
         batsmanRunsPredict(batsmanDF,batsman)
     }     else if (func == "Dismissals of batsman"){
         batsmanDismissals(batsmanDF,batsman)
     } else if (func == "Batsman's Runs vs Strike Rate"){
-        batsmanRunsVsStrikeRate(batsmanDF,batsman)
+        batsmanRunsVsStrikeRate(batsmanDF,batsman,staticIntv)
     } else if (func == "Batsman's Moving Average"){
-        batsmanMovingAverage(batsmanDF,batsman)
+        batsmanMovingAverage(batsmanDF,batsman,staticIntv)
     } else if (func == "Batsman's Cumulative Average Runs"){
         batsmanCumulativeAverageRuns(batsmanDF,batsman,staticIntv)
     } else if (func == "Batsman's Cumulative Strike Rate"){
-        batsmanCumulativeStrikeRate(batsmanDF,batsman)
+        batsmanCumulativeStrikeRate(batsmanDF,batsman,staticIntv)
     } else if (func == "Batsman's Runs against Opposition"){
-        batsmanRunsAgainstOpposition(batsmanDF,batsman)
+        batsmanRunsAgainstOpposition(batsmanDF,batsman,staticIntv)
     } else if (func == "Batsman's  Runs at Venue"){
-        batsmanRunsVenue(batsmanDF,batsman)
+        batsmanRunsVenue(batsmanDF,batsman,staticIntv)
     } else if (func == "Predict Runs of batsman"){
         batsmanRunsPredict(batsmanDF,batsman)
     }

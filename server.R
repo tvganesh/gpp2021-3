@@ -42,6 +42,7 @@ source('printOrPlotTeamPerfOverall.R')
 source("rankPlayers.R")
 shinyServer(function(input, output,session) {
 
+
      output$batsmanPlotsIPL <- renderPlot({
        analyzeBatsmen(input$batsmanIPL,input$batsmanFuncIPL, "IPL",input$staticIntv)
 
@@ -59,7 +60,11 @@ shinyServer(function(input, output,session) {
             plotOutput("batsmanPlotsIPL")
        }
        else{
-          plotlyOutput("batsmanPlotlyIPL")
+          #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (hacky!!)
+          if(input$batsmanFuncIPL =="Dismissals of batsman" || input$batsmanFuncIPL == "Predict Runs of batsman")
+              plotOutput("batsmanPlotsIPL")
+          else
+              plotlyOutput("batsmanPlotlyIPL")
        }
 
      })
