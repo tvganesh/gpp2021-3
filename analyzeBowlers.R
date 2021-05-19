@@ -8,7 +8,7 @@
 #
 #########################################################################################################
 # Analyze IPL bowlers
-analyzeBowlers <- function(bowler,func, t20type="IPL") {
+analyzeBowlers <- function(bowler,func, t20type="IPL",staticIntv1=1) {
 
   # Return when name is NULL at start
   if(is.null(bowler))
@@ -117,21 +117,21 @@ analyzeBowlers <- function(bowler,func, t20type="IPL") {
     print(dim(bowlerDF))
     # Call the necessary function
     if(func == "Mean Economy Rate of bowler"){
-        bowlerMeanEconomyRate(bowlerDF,bowler)
+        bowlerMeanEconomyRate(bowlerDF,bowler,staticIntv1)
     } else if (func == "Mean runs conceded by bowler"){
-        bowlerMeanRunsConceded(bowlerDF,bowler)
+        bowlerMeanRunsConceded(bowlerDF,bowler,staticIntv1)
     }     else if (func == "Bowler's Moving Average"){
-        bowlerMovingAverage(bowlerDF,bowler)
+        bowlerMovingAverage(bowlerDF,bowler,staticIntv1)
     } else if (func == "Bowler's Cumulative Avg. Wickets"){
-        bowlerCumulativeAvgWickets(bowlerDF,bowler)
+        bowlerCumulativeAvgWickets(bowlerDF,bowler,staticIntv1)
     } else if (func == "Bowler's Cumulative Avg. Economy Rate"){
-        bowlerCumulativeAvgEconRate(bowlerDF,bowler)
+        bowlerCumulativeAvgEconRate(bowlerDF,bowler,staticIntv1)
     } else if (func == "Bowler's Wicket Plot"){
-        bowlerWicketPlot(bowlerDF,bowler)
+        bowlerWicketPlot(bowlerDF,bowler,staticIntv1)
     } else if (func == "Bowler's Wickets against opposition"){
-        bowlerWicketsAgainstOpposition(bowlerDF,bowler)
+        bowlerWicketsAgainstOpposition(bowlerDF,bowler,staticIntv1)
     } else if (func == "Bowler's Wickets at Venues"){
-        bowlerWicketsVenue(bowlerDF,bowler)
+        bowlerWicketsVenue(bowlerDF,bowler,staticIntv1)
     } else if (func == "Bowler's wickets prediction"){
       # This is for the function wicket predict
       bowlerDF1 <- NULL

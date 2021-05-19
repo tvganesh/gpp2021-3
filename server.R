@@ -43,6 +43,8 @@ source("rankPlayers.R")
 shinyServer(function(input, output,session) {
 
 
+    #############
+    # IPL Batsmen
      output$batsmanPlotsIPL <- renderPlot({
        analyzeBatsmen(input$batsmanIPL,input$batsmanFuncIPL, "IPL",input$staticIntv)
 
@@ -60,7 +62,7 @@ shinyServer(function(input, output,session) {
             plotOutput("batsmanPlotsIPL")
        }
        else{
-          #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (hacky!!)
+          #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
           if(input$batsmanFuncIPL =="Dismissals of batsman" || input$batsmanFuncIPL == "Predict Runs of batsman")
               plotOutput("batsmanPlotsIPL")
           else
@@ -69,12 +71,56 @@ shinyServer(function(input, output,session) {
 
      })
 
+     ########################
+     output$bowlerPlotsIPL <- renderPlot({
+       analyzeBowlers(input$bowlerIPL,input$bowlerFuncIPL,"IPL",input$staticIntv1)
+     })
 
-    # Analyze and display bowler plots
-    output$bowlerPlotIPL <- renderPlot({
-        analyzeBowlers(input$bowlerIPL,input$bowlerFuncIPL)
+     output$bowlerPlotlyIPL <- renderPlotly({
+       analyzeBowlers(input$bowlerIPL,input$bowlerFuncIPL, "IPL",input$staticIntv1)
+     })
+     output$bowlerPlotIPL <- renderUI({
+       if(input$staticIntv1 == 1){
+           plotOutput("bowlerPlotsIPL")
+       }   else{
+           if(input$bowlerFuncIPL == "Bowler's wickets prediction")
+                  plotOutput("bowlerPlotsIPL")
+           else
+                  plotlyOutput("bowlerPlotlyIPL")
+       }
 
-    })
+     })
+     # IPL Bowlers
+
+     # output$bowlerPlotsIPL <- renderPlot({
+     #   analyzeBowler(input$bowlerIPL,input$bowlerFuncIPL, "IPL",input$staticIntv1)
+     #
+     # })
+     #
+     # output$bowlerPlotlyIPL <- renderPlotly({
+     #   analyzeBowler(input$bowlerIPL,input$bowlerFuncIPL, "IPL",input$staticIntv1)
+     #
+     # })
+     #
+     #
+     # # Analyze and display batsmen plots
+     # output$bowlerPlotIPL <- renderUI({
+     #   if(input$staticIntv1 == 1){
+     #     plotOutput("bowlerPlotsIPL")
+     #   }
+     #   else{
+     #     #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (hacky!!)
+     #     # if(input$batsmanFuncIPL =="Dismissals of batsman" || input$batsmanFuncIPL == "Predict Runs of batsman")
+     #     #   plotOutput("batsmanPlotsIPL")
+     #     # else
+     #     plotlyOutput("bowlerPlotlyIPL")
+     #   }
+     #
+     # })
+
+
+
+
 
     ######################################## IPL Match  #############################################
     # Analyze and display IPL Match plot
