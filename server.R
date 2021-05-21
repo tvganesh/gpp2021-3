@@ -72,6 +72,7 @@ shinyServer(function(input, output,session) {
      })
 
      ########################
+     #IPL bowlers
      output$bowlerPlotsIPL <- renderPlot({
        analyzeBowlers(input$bowlerIPL,input$bowlerFuncIPL,"IPL",input$staticIntv1)
      })
@@ -79,6 +80,7 @@ shinyServer(function(input, output,session) {
      output$bowlerPlotlyIPL <- renderPlotly({
        analyzeBowlers(input$bowlerIPL,input$bowlerFuncIPL, "IPL",input$staticIntv1)
      })
+
      output$bowlerPlotIPL <- renderUI({
        if(input$staticIntv1 == 1){
            plotOutput("bowlerPlotsIPL")
@@ -90,33 +92,7 @@ shinyServer(function(input, output,session) {
        }
 
      })
-     # IPL Bowlers
 
-     # output$bowlerPlotsIPL <- renderPlot({
-     #   analyzeBowler(input$bowlerIPL,input$bowlerFuncIPL, "IPL",input$staticIntv1)
-     #
-     # })
-     #
-     # output$bowlerPlotlyIPL <- renderPlotly({
-     #   analyzeBowler(input$bowlerIPL,input$bowlerFuncIPL, "IPL",input$staticIntv1)
-     #
-     # })
-     #
-     #
-     # # Analyze and display batsmen plots
-     # output$bowlerPlotIPL <- renderUI({
-     #   if(input$staticIntv1 == 1){
-     #     plotOutput("bowlerPlotsIPL")
-     #   }
-     #   else{
-     #     #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (hacky!!)
-     #     # if(input$batsmanFuncIPL =="Dismissals of batsman" || input$batsmanFuncIPL == "Predict Runs of batsman")
-     #     #   plotOutput("batsmanPlotsIPL")
-     #     # else
-     #     plotlyOutput("bowlerPlotlyIPL")
-     #   }
-     #
-     # })
 
 
 
@@ -124,8 +100,13 @@ shinyServer(function(input, output,session) {
 
     ######################################## IPL Match  #############################################
     # Analyze and display IPL Match plot
-    output$IPLMatchPlot <- renderPlotly({
+    output$IPLMatchPlots <- renderPlot({
         printOrPlotMatch(input, output,"IPL")
+
+    })
+
+    output$IPLMatchPlotly <- renderPlotly({
+       printOrPlotMatch(input, output,"IPL")
 
     })
 
@@ -142,7 +123,12 @@ shinyServer(function(input, output,session) {
             tableOutput("IPLMatchPrint")
         }
         else{ #Else plot
-          plotlyOutput("IPLMatchPlot")
+          if(input$plotOrTable == 1){
+            plotOutput("IPLMatchPlots")
+          } else{
+            plotlyOutput("IPLMatchPlotly")
+          }
+
         }
 
     })
@@ -151,8 +137,13 @@ shinyServer(function(input, output,session) {
     # Analyze Head to head confrontation of IPL teams
 
     # Analyze and display IPL Matches between 2 teams plot
-    output$IPLMatch2TeamsPlot <- renderPlot({
+    output$IPLMatch2TeamsPlots <- renderPlot({
         printOrPlotMatch2Teams(input, output)
+
+    })
+
+    output$IPLMatch2TeamsPlotly <- renderPlotly({
+      printOrPlotMatch2Teams(input, output)
 
     })
 
@@ -160,16 +151,24 @@ shinyServer(function(input, output,session) {
     output$IPLMatch2TeamsPrint <- renderTable({
         a <- printOrPlotMatch2Teams(input, output)
         a
-        #a
     })
+
     # Output either a table or a plot
     output$plotOrPrintIPLMatch2teams <-  renderUI({
+
+      if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1 == 3){
+           plotlyOutput("IPLMatch2TeamsPlotly")
+       }
         # Check if output is a dataframe. If so, print
-        if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output))){
+        else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output))){
             tableOutput("IPLMatch2TeamsPrint")
         }
         else{ #Else plot
-            plotOutput("IPLMatch2TeamsPlot")
+          if(input$plotOrTable1 == 1){
+            plotOutput("IPLMatch2TeamsPlots")
+          } else if(input$plotOrTable1 == 2){
+            plotlyOutput("IPLMatch2TeamsPlotly")
+          }
         }
 
     })
