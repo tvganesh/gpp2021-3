@@ -272,32 +272,72 @@ shinyServer(function(input, output,session) {
 ##########################################################################################
 # T20 Men
 
-    # Analyze and display batsmen plots
-    output$batsmanPlotT20M <- renderPlot({
-      analyzeBatsmen(input$batsmanT20M,input$batsmanFuncT20M, "T20M")
+    # T20M Batsmen
+    output$batsmanPlotsT20M <- renderPlot({
+      analyzeBatsmen(input$batsmanT20M,input$batsmanFuncT20M, "T20M",input$staticIntvT20M)
+
+    })
+
+    output$batsmanPlotlyT20M <- renderPlotly({
+      analyzeBatsmen(input$batsmanT20M,input$batsmanFuncT20M, "T20M",input$staticIntvT20M)
 
     })
 
 
+    # Analyze and display batsmen plots
+    output$batsmanPlotT20M <- renderUI({
+      if(input$staticIntvT20M == 1){
+        plotOutput("batsmanPlotsT20M")
+      }
+      else{
+        #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+        if(input$batsmanFuncT20M =="Dismissals of batsman" || input$batsmanFuncT20M == "Predict Runs of batsman")
+          plotOutput("batsmanPlotsT20M")
+        else
+          plotlyOutput("batsmanPlotlyT20M")
+      }
+
+    })
+
+
+
     # Analyze and display bowler plots
-    output$bowlerPlotT20M <- renderPlot({
-          analyzeBowlers(input$bowlerT20M,input$bowlerFuncT20M, "T20M")
+    output$bowlerPlotsT20M <- renderPlot({
+      analyzeBowlers(input$bowlerT20M,input$bowlerFuncT20M,"T20M",input$staticIntv1T20M)
+    })
+
+    output$bowlerPlotlyT20M <- renderPlotly({
+      analyzeBowlers(input$bowlerT20M,input$bowlerFuncT20M, "T20M",input$staticIntv1T20M)
+    })
+
+    output$bowlerPlotT20M <- renderUI({
+      if(input$staticIntv1 == 1){
+        plotOutput("bowlerPlotsT20M")
+      }   else{
+        if(input$bowlerFuncT20M == "Bowler's wickets prediction")
+          plotOutput("bowlerPlotsT20M")
+        else
+          plotlyOutput("bowlerPlotlyT20M")
+      }
+
     })
 
 
     ######################################## T20 Men's Match  #############################################
     # Analyze and display T20 Match plot
-    output$T20MMatchPlot <- renderPlot({
-      print("t20 plot")
+    output$T20MMatchPlots <- renderPlot({
       printOrPlotMatch(input, output,"T20M")
 
     })
 
-    # Analyze and display T20 Match table
+    output$T20MMatchPlotly <- renderPlotly({
+      printOrPlotMatch(input, output,"T20M")
+
+    })
+
+    # Analyze and display T20M Match table
     output$T20MMatchPrint <- renderTable({
-      print("t20 print")
       a <- printOrPlotMatch(input, output,"T20M")
-      head(a)
       a
 
     })
@@ -305,11 +345,15 @@ shinyServer(function(input, output,session) {
     output$plotOrPrintT20MMatch <-  renderUI({
       # Check if output is a dataframe. If so, print
       if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"T20M"))){
-        print("Hello&&&&&&&&&&&&&&&")
         tableOutput("T20MMatchPrint")
       }
       else{ #Else plot
-        plotOutput("T20MMatchPlot")
+        if(input$plotOrTableT20M == 1){
+          plotOutput("T20MMatchPlots")
+        } else{
+          plotlyOutput("T20MMatchPlotly")
+        }
+
       }
 
     })
@@ -318,7 +362,13 @@ shinyServer(function(input, output,session) {
     # Analyze Head to head confrontation of T20 Mens teams
 
     # Analyze and display T20 Men Matches between 2 teams plot
-    output$T20MMatch2TeamsPlot <- renderPlot({
+    output$T20MMatch2TeamsPlots <- renderPlot({
+      print("plot")
+      printOrPlotMatch2Teams(input, output,"T20M")
+
+    })
+
+    output$T20MMatch2TeamsPlotly <- renderPlotly({
       print("plot")
       printOrPlotMatch2Teams(input, output,"T20M")
 
@@ -334,13 +384,20 @@ shinyServer(function(input, output,session) {
 
     # Output either a table or a plot
     output$plotOrPrintT20MMatch2teams <-  renderUI({
-      print("Server ")
+
+      if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1 == 3){
+        plotlyOutput("T20MMatch2TeamsPlotly")
+      }
       # Check if output is a dataframe. If so, print
-      if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"T20M"))){
+      else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output))){
         tableOutput("T20MMatch2TeamsPrint")
       }
       else{ #Else plot
-        plotOutput("T20MMatch2TeamsPlot")
+        if(input$plotOrTable1T20M == 1){
+          plotOutput("T20MMatch2TeamsPlots")
+        } else if(input$plotOrTable1 == 2){
+          plotlyOutput("T20MMatch2TeamsPlotly")
+        }
       }
 
     })
@@ -349,7 +406,12 @@ shinyServer(function(input, output,session) {
 
     ################################ T20 Men's Teams's overall performance ##############################
     # Analyze overall T20 Mens team performance plots
-    output$T20MTeamPerfOverallPlot <- renderPlot({
+    output$T20MTeamPerfOverallPlots <- renderPlot({
+      printOrPlotTeamPerfOverall(input, output,"T20M")
+
+    })
+
+    output$T20MTeamPerfOverallPlotly <- renderPlotly({
       printOrPlotTeamPerfOverall(input, output,"T20M")
 
     })
@@ -360,14 +422,23 @@ shinyServer(function(input, output,session) {
       a
 
     })
+
     # Output either a table or a plot
     output$printOrPlotT20MTeamPerfoverall <-  renderUI({
+
+      if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+        plotlyOutput("T20MTeamPerfOverallPlotly")
+      }
       # Check if output is a dataframe. If so, print
-      if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"T20M"))){
+      else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output))){
         tableOutput("T20MTeamPerfOverallPrint")
       }
       else{ #Else plot
-        plotOutput("T20MTeamPerfOverallPlot")
+        if(input$plotOrTable2T20M == 1){
+          plotOutput("T20MTeamPerfOverallPlots")
+        } else if(input$plotOrTable2T20M == 2){
+          plotlyOutput("T20MTeamPerfOverallPlotly")
+        }
       }
     })
 
@@ -476,7 +547,7 @@ shinyServer(function(input, output,session) {
 
     })
 
-    # Analyze and display IPL Match table
+    # Analyze and display T20M Match table
     output$T20WMatch2TeamsPrint <- renderTable({
       print("Women table")
       a <- printOrPlotMatch2Teams(input, output,"T20W")
