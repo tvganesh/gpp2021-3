@@ -264,7 +264,8 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
 
                                  ))),
 
-    ############################# International T20 (Men) ################################
+    ############################# International T20 (Men) ############################################
+    #############################################################################################
     tabPanel("Intl. T20 (men)",navbarPage("GooglyPlusPlus - International T20 (men)",
                                          # Batsman tab
                                          tabPanel("Intl T20 batsman",
@@ -494,125 +495,154 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
 
                                       )),
     ############################# International T20 (Women) ################################
+    ########################################################################################
     tabPanel("Intl. T20 (women)",navbarPage("GooglyPlusPlus - International T20 (women)",
-                                         # Batsman tab
-                                         tabPanel("Intl T20 batsman",
-                                                  h4('Analyze Intl T20 batsman performances'),
-                                                  sidebarPanel(
-                                                    selectInput('batsmanFuncT20W', 'Select function', batsmanFuncs),
-                                                    selectInput('batsmanT20W', 'Select batsman', T20WBatsmen,selectize=FALSE, size=20),
-                                                  ),
-                                                  mainPanel(
-                                                    plotOutput('batsmanPlotT20W'),
-                                                    column(7, offset=4,
-                                                           tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                           tags$h5((tags$i("Feb 6, 2021"))),
-                                                           tags$h6("Data source Cricsheet: http://cricsheet.org/"),
-                                                           tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                    )
-                                                  )
-                                         ),
-                                         # Bowlers tab
-                                         tabPanel("Intl T20 Women bowlers",
+                                          # Batsman tab
+                                          tabPanel("Intl T20 batsman",
+                                                   h4('Analyze Intl T20 batsman performances'),
+                                                   sidebarPanel(
+                                                     selectInput('batsmanFuncT20W', 'Select function', batsmanFuncs),
+                                                     selectInput('batsmanT20W', 'Select batsman', T20WBatsmen,selectize=FALSE, size=20),
+                                                     radioButtons("staticIntvT20W", label = h4("Plot type"),
+                                                                  choices = c("interactive" = 2,"static" = 1 ),
+                                                                  selected = 2,inline=T)
+                                                   ),
+                                                   mainPanel(
 
-                                                  h4('Analyze T20 Women bowler performances'),
+                                                     uiOutput('batsmanPlotT20W'),
+                                                     column(12, offset=6,
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                            tags$h5((tags$i("Feb 6, 2021"))),
+                                                            tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                            tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                     )
+                                                   )
+                                          ),
+                                          # Bowlers tab
+                                          tabPanel("Intl. T20 bowlers",
 
-                                                  sidebarPanel(
-                                                    selectInput('bowlerFuncT20W', 'Select function', bowlerFuncs),
-                                                    selectInput('bowlerT20W', 'Select T20 bowler', T20WBowlers,selectize=FALSE, size=20)
+                                                   h4('Analyze Intl. T20 bowler performances'),
+
+                                                   sidebarPanel(
+                                                     selectInput('bowlerFuncT20W', 'Select function', bowlerFuncs),
+                                                     selectInput('bowlerT20W', 'Select bowler', T20WBowlers,selectize=FALSE, size=20),
+                                                     radioButtons("staticIntv1T20W", label = h4("Plot type"),
+                                                                  choices = c("interactive" = 2,"static" = 1 ),
+                                                                  selected = 2,inline=T)
 
 
-                                                  ),
-                                                  mainPanel(
-                                                    plotOutput('bowlerPlotT20W'),
-                                                    column(7, offset=4,
-                                                           tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                           tags$h5((tags$i("Feb 6, 2021"))),
-                                                           tags$h6("Data source Cricsheet: http://cricsheet.org/"),
-                                                           tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                    )
-                                                  )
-                                         ),
-                                         tabPanel("Intl T20 Women's Match",
-                                                  h4('Analyze an Intl T20 match'),
-                                                  sidebarPanel(
-                                                    selectInput('matchFuncT20W', 'Select match function', matchFuncs),
-                                                    selectInput('matchT20W', 'Select T20 match ', T20WMatches,selectize=FALSE, size=15),
-                                                    uiOutput("selectTeamT20W"),
-                                                    radioButtons("plotOrTableT20W", label = h4("Plot or table"),
-                                                                 choices = c("Plot" = 1, "Table" = 2),
-                                                                 selected = 1,inline=T)
+                                                   ),
+                                                   mainPanel(
+                                                     uiOutput('bowlerPlotT20W'),
+                                                     column(12, offset=6,
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                            tags$h5((tags$i("Feb 6, 2021"))),
+                                                            tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                            tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                     )
+                                                   )
 
-                                                  ),
-                                                  mainPanel(
-                                                    uiOutput("plotOrPrintT20WMatch"),
-                                                    column(7, offset=4,
-                                                           tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                           tags$h5((tags$i("Feb 6, 2021"))),
-                                                           tags$h6("Data source Cricsheet: http://cricsheet.org/"),
-                                                           tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                    )
-                                                  )
-                                         ),
-                                         # Analyze 2 T20 Teams Women's  matches
-                                         tabPanel("Head to head",
-                                                  h4('Head-to-head between 2 T20 (Womens) teams'),
-                                                  sidebarPanel(
-                                                    selectInput('matches2TeamFuncT20W', 'Select function', matches2TeamsFuncs),
-                                                    selectInput('match2T20W', 'Select matches', T20WMatches2Teams,selectize=FALSE, size=13),
-                                                    uiOutput("selectTeam2T20W"),
-                                                    radioButtons("plotOrTable1T20W", label = h4("Plot or table"),
-                                                                 choices = c("Plot" = 1, "Table" = 2),
-                                                                 selected = 1,inline=T),
-                                                    radioButtons("repTypeT20W", label = h4("Report Type"),
-                                                                 choices = c("Summary" = 1, "Detailed" = 2),
-                                                                 selected = 1,inline=T)
+                                          ),
+                                          tabPanel("Intl T20 Match",
+                                                   h4('Analyze an Intl T20 match'),
+                                                   sidebarPanel(
+                                                     selectInput('matchFuncT20W', 'Select match function', matchFuncs),
+                                                     selectInput('matchT20W', 'Select T20 match ', T20WMatches,selectize=FALSE, size=15),
+                                                     uiOutput("selectTeamT20W"),
+                                                     radioButtons("plotOrTableT20W", label = h4("Plot(static,interactive) or table"),
+                                                                  choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                  selected = 2,inline=T)
 
-                                                  ),
-                                                  mainPanel(
-                                                    uiOutput("plotOrPrintT20WMatch2teams"),
-                                                    column(7, offset=4,
-                                                           tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                           tags$h5((tags$i("Feb 6, 2021"))),
-                                                           tags$h6("Data source Cricsheet: http://cricsheet.org/"),
-                                                           tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                    )
-                                                  )
+                                                   ),
+                                                   mainPanel(
+                                                     uiOutput("plotOrPrintT20WMatch"),
+                                                     column(7, offset=4,
+                                                            tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                            tags$h5((tags$i("Feb 6, 2021"))),
+                                                            tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                            tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                     )
+                                                   )
+                                          ),
 
-                                         ),
-                                         # Analyze T20 Womens Team Overall Perf
-                                         tabPanel("Overall Performance",
-                                                  h4("Analyze T20 Womens team's overall performance"),
-                                                  sidebarPanel(
-                                                    selectInput('overallperfFuncT20W', 'Select function', teamOverallPerfFunc),
-                                                    selectInput('teamMatchesT20W', 'Select the team', T20WTeamsAll,selectize=FALSE, size=13),
-                                                    uiOutput("RankT20W"),
-                                                    radioButtons("plotOrTable2T20W", label = h4("Plot or table"),
-                                                                 choices = c("Plot" = 1, "Table" = 2),
-                                                                 selected = 1,inline=T),
-                                                    radioButtons("repType2T20W", label = h4("Report Type"),
-                                                                 choices = c("Summary" = 1, "Detailed" = 2),
-                                                                 selected = 1,inline=T)
-                                                  ),
-                                                  mainPanel(
-                                                    uiOutput('printOrPlotT20WTeamPerfoverall'),
-                                                    column(7, offset=4,
-                                                           tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                           tags$h5((tags$i("Feb 6, 2021"))),
-                                                           tags$h6("Data source Cricsheet: http://cricsheet.org/"),
-                                                           tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                    )
-                                                  )
+                                          # Analyze 2 T20 Teams women's  matches
+                                          tabPanel("Head to head",
+                                                   h4('Head-to-head between 2 T20 (womens) teams'),
+                                                   sidebarPanel(
+                                                     selectInput('matches2TeamFuncT20W', 'Select function', matches2TeamsFuncs),
+                                                     selectInput('match2T20W', 'Select matches', T20WMatches2Teams,selectize=FALSE, size=13),
+                                                     uiOutput("selectTeam2T20W"),
+                                                     radioButtons("plotOrTable1T20W", label = h4("Plot(static,interactive) or table"),
+                                                                  choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                  selected = 2,inline=T),
+                                                     radioButtons("repTypeT20W", label = h4("Report Type"),
+                                                                  choices = c("Summary" = 1, "Detailed" = 2),
+                                                                  selected = 1,inline=T)
 
-                                         ),
+                                                   ),
+                                                   mainPanel(
+                                                     uiOutput("plotOrPrintT20WMatch2teams"),
+                                                     column(12, offset=6,
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                            tags$h5((tags$i("Feb 6, 2021"))),
+                                                            tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                            tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                     )
+                                                   )
 
-                                         # Rank T20 Women  tab
-                                         tabPanel("Rank Intl. T20 Batsmen (women)",
+                                          ),
+                                          # Analyze T20Wens Team Overall Perf
+                                          tabPanel("Overall Performance",
+                                                   h4("Analyze T20W team's overall performance"),
+                                                   sidebarPanel(
+                                                     selectInput('overallperfFuncT20W', 'Select function', teamOverallPerfFunc),
+                                                     selectInput('teamMatchesT20W', 'Select the team', T20WTeamsAll,selectize=FALSE, size=13),
+                                                     uiOutput("RankT20W"),
+                                                     radioButtons("plotOrTable2T20W", label = h4("Plot or table"),
+                                                                  choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                  selected = 2,inline=T),
+                                                     radioButtons("repType2T20W", label = h4("Report Type"),
+                                                                  choices = c("Summary" = 1, "Detailed" = 2),
+                                                                  selected = 1,inline=T)
+                                                   ),
+                                                   mainPanel(
+                                                     uiOutput('printOrPlotT20WTeamPerfoverall'),
+                                                     column(12, offset=6,
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            br(),
+                                                            tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                            tags$h5((tags$i("Dec 14, 2020"))),
+                                                            tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                            tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                     )
+                                                   )
 
-                                                h4('Rank Intl. T20 Batsmen (women)'),
+                                          ),
+                                          # Rank T20 Women  tab
+                                          tabPanel("Rank Intl. T20 Batsmen (women)",
 
-                                                sidebarPanel(
-                                                  tags$head( tags$style( type = "text/css", '
+                                                   h4('Rank Intl. T20 Batsmen (women)'),
+
+                                                   sidebarPanel(
+                                                     tags$head( tags$style( type = "text/css", '
                                                 .js-irs-8 .irs-line-mid{
                                                   background: #428bca ;
                                                   border: 1px solid #428bca ;
@@ -629,34 +659,33 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                   background: inherit ;
                                                   border: inherit ;
                                                 }
-
                                               ')),
 
-                                                    sliderInput("yearSelectedT20W", "Since year",min = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])-1, max = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[2]]), value = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])),
-                                                    sliderInput("minMatchesT20W", "Matches played",min = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[3]]), max = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[4]]), value = 0),
-                                                    uiOutput("ModeT20W")
+                                                     sliderInput("yearSelectedT20W", "Since year",min = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])-1, max = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[2]]), value = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])),
+                                                     sliderInput("minMatchesT20W", "Matches played",min = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[3]]), max = (helper(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[4]]), value = 0),
+                                                     uiOutput("ModeT20W")
 
-                                                  ),
-                                                  mainPanel(
-                                                    shinycssloaders::withSpinner(
-                                                      uiOutput('rankT20WBatsmen'),
-                                                    ),
+                                                   ),
+                                                   mainPanel(
+                                                     shinycssloaders::withSpinner(
+                                                       uiOutput('rankT20WBatsmen'),
+                                                     ),
 
-                                                    column(7, offset=4,
-                                                           tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                           tags$h5((tags$i("Feb 6, 2021"))),
-                                                           tags$h6("Data source Cricsheet: http://cricsheet.org/"),
-                                                           tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                    )
-                                                  )
-                                         ),
-                                         # Rank T20 Bowlers(women) tab
-                                         tabPanel("Rank Intl. T20 Bowlers (women)",
+                                                     column(7, offset=4,
+                                                            tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                            tags$h5((tags$i("Feb 6, 2021"))),
+                                                            tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                            tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                     )
+                                                   )
+                                          ),
+                                          # Rank T20 Bowlers(women) tab
+                                          tabPanel("Rank Intl. T20 Bowlers (women)",
 
-                                                  h4('Rank Intl. T20 Bowlers (women)'),
+                                                   h4('Rank Intl. T20 Bowlers (women)'),
 
-                                                  sidebarPanel(
-                                                    tags$head( tags$style( type = "text/css", '
+                                                   sidebarPanel(
+                                                     tags$head( tags$style( type = "text/css", '
                                                     .js-irs-10 .irs-line-mid{
                                                       background: #428bca ;
                                                       border: 1px solid #428bca ;
@@ -675,25 +704,26 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                     }
                                                   ')),
 
-                                                    sliderInput("yearSelected1T20W", "Since year",min = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])-1, max = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[2]]), value = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])),
-                                                    sliderInput("minMatches1T20W", "Matches played",min = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[3]]), max = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[4]]), value = 0),
-                                                    uiOutput("Mode1T20W")
-                                                  ),
-                                                  mainPanel(
-                                                    shinycssloaders::withSpinner(
-                                                      uiOutput('rankT20WBowlers'),
-                                                    ),
-                                                    column(7, offset=4,
-                                                           tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                           tags$h5((tags$i("Feb 6, 2021"))),
-                                                           tags$h6("Data source Cricsheet: http://cricsheet.org/"),
-                                                           tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                    )
-                                                  )
-                                         )
+                                                     sliderInput("yearSelected1T20W", "Since year",min = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])-1, max = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[2]]), value = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[1]])),
+                                                     sliderInput("minMatches1T20W", "Matches played",min = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[3]]), max = (helper2(T20WTeamNames,"./t20/t20WomenBattingBowlingDetails")[[4]]), value = 0),
+                                                     uiOutput("Mode1T20W")
+                                                   ),
+                                                   mainPanel(
+                                                     shinycssloaders::withSpinner(
+                                                       uiOutput('rankT20WBowlers'),
+                                                     ),
+                                                     column(7, offset=4,
+                                                            tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                            tags$h5((tags$i("Feb 6, 2021"))),
+                                                            tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                            tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                     )
+                                                   )
+                                          )
 
-                               )),
-    #############################Big Bash League T20 ################################
+    )),
+    #############################Big Bash League T20 #########################################################
+    ###########################################################################################################
     tabPanel("BBL T20",navbarPage("GooglyPlusPlus - Big Bash League T20",
                                            # Batsman tab
                                            tabPanel("BBL T20 batsman",
