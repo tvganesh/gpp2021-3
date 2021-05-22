@@ -37,8 +37,8 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                             selectInput('batsmanFuncIPL', 'Select function', batsmanFuncs),
                                             selectInput('batsmanIPL', 'Select batsman', IPLBatsmen,selectize=FALSE, size=20),
                                             radioButtons("staticIntv", label = h4("Plot type"),
-                                                         choices = c("static" = 1, "interactive" = 2),
-                                                         selected = 1,inline=T)
+                                                         choices = c("interactive" = 2,"static" = 1 ),
+                                                         selected = 2,inline=T)
                                           ),
                                           mainPanel(
                                                   uiOutput('batsmanPlotIPL'),
@@ -66,8 +66,8 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                             selectInput('bowlerFuncIPL', 'Select function', bowlerFuncs),
                                             selectInput('bowlerIPL', 'Select IPL bowler', IPLBowlers,selectize=FALSE, size=20),
                                             radioButtons("staticIntv1", label = h4("Plot type"),
-                                                         choices = c("static" = 1, "interactive" = 2),
-                                                         selected = 1,inline=T)
+                                                         choices = c("interactive" = 2,"static" = 1 ),
+                                                         selected = 2,inline=T)
 
 
                                           ),
@@ -95,8 +95,8 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                             selectInput('match', 'Select IPL match ', IPLMatches,selectize=FALSE, size=15),
                                             uiOutput("selectTeam"),
                                             radioButtons("plotOrTable", label = h4("Plot(static,interactive) or table"),
-                                                         choices = c("Plot(static)" = 1, "Plot(interactive)" = 2, "Table" = 3),
-                                                         selected = 1,inline=T)
+                                                         choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                         selected = 2,inline=T)
 
                                           ),
                                           mainPanel(
@@ -118,8 +118,8 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                             selectInput('match2', 'Select matches', IPLMatches2Teams,selectize=FALSE, size=13),
                                             uiOutput("selectTeam2"),
                                             radioButtons("plotOrTable1", label = h4("Plot(static,interactive) or table"),
-                                                         choices = c("Plot(static)" = 1, "Plot(interactive)" = 2, "Table" = 3),
-                                                         selected = 1,inline=T),
+                                                         choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                         selected = 2,inline=T),
                                             radioButtons("repType", label = h4("Report Type"),
                                                          choices = c("Summary" = 1, "Detailed" = 2),
                                                          selected = 1,inline=T)
@@ -149,8 +149,8 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                             selectInput('teamMatches', 'Select the team', IPLTeamsAll,selectize=FALSE, size=13),
                                             uiOutput("Rank"),
                                             radioButtons("plotOrTable2", label = h4("Plot or table"),
-                                                         choices = c("Plot(static)" = 1, "Plot(interactive)" = 2, "Table" = 3),
-                                                         selected = 1,inline=T),
+                                                         choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                         selected = 2,inline=T),
                                             radioButtons("repType2", label = h4("Report Type"),
                                                          choices = c("Summary" = 1, "Detailed" = 2),
                                                          selected = 1,inline=T)
