@@ -91,21 +91,18 @@ analyzeTeamPerfOverall <- function(matches,matchFunc,team,rankV,plotOrTable2,rep
     print(repType2)
   }
 
-    if(plotOrTable2 == 1){
+    if(plotOrTable2 == 1 || plotOrTable2 == 2 ){
         val3=TRUE
     } else {
         val3= FALSE
     }
-
-
-
 
     # Call the correct function
     if(matchFunc == "Team Batting Scorecard Overall"){
         teamBattingScorecardAllOppnAllMatches(matchesDF,team)
     } else if (matchFunc == "Team Batsmen Partnerships Overall"){
         if(val3 == TRUE){
-            teamBatsmenPartnershipAllOppnAllMatchesPlot(matchesDF,team,main=team,plot=val3)
+            teamBatsmenPartnershipAllOppnAllMatchesPlot(matchesDF,team,main=team,plot=plotOrTable2)
         } else if(val3 == FALSE){
             if(repType2 ==1){
                 teamBatsmenPartnershipAllOppnAllMatches(matchesDF,team,report="summary")
@@ -118,7 +115,7 @@ analyzeTeamPerfOverall <- function(matches,matchFunc,team,rankV,plotOrTable2,rep
     } else if (matchFunc == "Team Batsmen vs Bowlers Overall"){
         if(val3 == TRUE){
            df <- teamBatsmenVsBowlersAllOppnAllMatchesRept(matchesDF,team,rank=as.integer(rankV),dispRows = 20)
-           teamBatsmenVsBowlersAllOppnAllMatchesPlot(df)
+           teamBatsmenVsBowlersAllOppnAllMatchesPlot(df,plot=plotOrTable2)
         } else {
             teamBatsmenVsBowlersAllOppnAllMatchesRept(matchesDF,team,rank=as.integer(rankV))
         }
@@ -129,17 +126,17 @@ analyzeTeamPerfOverall <- function(matches,matchFunc,team,rankV,plotOrTable2,rep
     } else if (matchFunc == "Team Bowler vs Batsmen Overall"){
         if(val3 == TRUE){
            df <- teamBowlersVsBatsmenAllOppnAllMatchesRept(matchesDF,team,rank=as.integer(rankV))
-           teamBowlersVsBatsmenAllOppnAllMatchesPlot(df,team,team)
+           teamBowlersVsBatsmenAllOppnAllMatchesPlot(df,team,team,plot=plotOrTable2)
         } else {
             teamBowlersVsBatsmenAllOppnAllMatchesRept(matchesDF,team,rank=as.integer(rankV))
         }
 
 
     } else if (matchFunc == "Team Bowler Wicket Kind Overall"){
-        teamBowlingWicketKindAllOppnAllMatches(matchesDF,team,"All")
+        teamBowlingWicketKindAllOppnAllMatches(matchesDF,team,"All",plot=plotOrTable2)
 
     } else if (matchFunc == "Win Loss Team vs All Opposition"){
-      plotWinLossTeamVsAllTeams(team,dir1)
+      plotWinLossTeamVsAllTeams(team,dir1,plot=plotOrTable2)
 
     }
 
