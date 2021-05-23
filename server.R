@@ -720,31 +720,71 @@ shinyServer(function(input, output,session) {
   ##########################################################################################################
   # Big Bash League
 
-  # Analyze and display batsmen plots
-  output$batsmanPlotBBL <- renderPlot({
-    analyzeBatsmen(input$batsmanBBL,input$batsmanFuncBBL, "BBL")
+  output$batsmanPlotsBBL <- renderPlot({
+    analyzeBatsmen(input$batsmanBBL,input$batsmanFuncBBL, "BBL",input$staticIntvBBL)
 
   })
+
+  output$batsmanPlotlyBBL <- renderPlotly({
+    analyzeBatsmen(input$batsmanBBL,input$batsmanFuncBBL, "BBL",input$staticIntvBBL)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotBBL <- renderUI({
+    if(input$staticIntvBBL == 1){
+      plotOutput("batsmanPlotsBBL")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncBBL =="Dismissals of batsman" || input$batsmanFuncBBL == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsBBL")
+      else
+        plotlyOutput("batsmanPlotlyBBL")
+    }
+
+  })
+
+
 
   # Analyze and display bowler plots
-  output$bowlerPlotBBL <- renderPlot({
-    analyzeBowlers(input$bowlerBBL,input$bowlerFuncBBL, "BBL")
+  output$bowlerPlotsBBL <- renderPlot({
+    analyzeBowlers(input$bowlerBBL,input$bowlerFuncBBL,"BBL",input$staticIntv1BBL)
+  })
+
+  output$bowlerPlotlyBBL <- renderPlotly({
+    analyzeBowlers(input$bowlerBBL,input$bowlerFuncBBL, "BBL",input$staticIntv1BBL)
+  })
+
+  output$bowlerPlotBBL <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsBBL")
+    }   else{
+      if(input$bowlerFuncBBL == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsBBL")
+      else
+        plotlyOutput("bowlerPlotlyBBL")
+    }
 
   })
 
-  ########################################  BBL T20 Match  #############################################
+
+  ######################################## BBL Match  #############################################
   # Analyze and display T20 Match plot
-  output$BBLMatchPlot <- renderPlot({
-    print("t20 plot")
+  output$BBLMatchPlots <- renderPlot({
     printOrPlotMatch(input, output,"BBL")
 
   })
 
-  # Analyze and display T20 Match table
+  output$BBLMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"BBL")
+
+  })
+
+  # Analyze and display BBL Match table
   output$BBLMatchPrint <- renderTable({
-    print("t20 print")
     a <- printOrPlotMatch(input, output,"BBL")
-    head(a)
     a
 
   })
@@ -752,48 +792,73 @@ shinyServer(function(input, output,session) {
   output$plotOrPrintBBLMatch <-  renderUI({
     # Check if output is a dataframe. If so, print
     if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"BBL"))){
-      print("Hello&&&&&&&&&&&&&&&")
       tableOutput("BBLMatchPrint")
     }
     else{ #Else plot
-      plotOutput("BBLMatchPlot")
+      if(input$plotOrTableBBL == 1){
+        plotOutput("BBLMatchPlots")
+      } else{
+        plotlyOutput("BBLMatchPlotly")
+      }
+
     }
 
   })
 
   #################################### BBL  Matches between 2 teams ######################
-  # Analyze Head to head confrontation of BBL T20  teams
+  # Analyze Head to head confrontation of BBL Mens teams
 
-  # Analyze and display BBL T20  Matches between 2 teams plot
-  output$BBLMatch2TeamsPlot <- renderPlot({
-    print("Women plot")
+  # Analyze and display BBL Matches between 2 teams plot
+  output$BBLMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"BBL")
+
+  })
+
+  output$BBLMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
     printOrPlotMatch2Teams(input, output,"BBL")
 
   })
 
   # Analyze and display BBL Match table
   output$BBLMatch2TeamsPrint <- renderTable({
-    print("Women table")
+    print("table")
     a <- printOrPlotMatch2Teams(input, output,"BBL")
     a
+    #a
   })
 
   # Output either a table or a plot
   output$plotOrPrintBBLMatch2teams <-  renderUI({
-    print("Women's match ")
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1BBL == 3){
+      plotlyOutput("BBLMatch2TeamsPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"BBL"))){
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"BBL"))){
       tableOutput("BBLMatch2TeamsPrint")
     }
     else{ #Else plot
-      plotOutput("BBLMatch2TeamsPlot")
+      if(input$plotOrTable1BBL == 1){
+        plotOutput("BBLMatch2TeamsPlots")
+      } else if(input$plotOrTable1BBL == 2){
+        plotlyOutput("BBLMatch2TeamsPlotly")
+      }
     }
 
   })
 
-  ################################ BBL T20  Teams's overall performance ##############################
-  # Analyze overall BBL  team performance plots
-  output$BBLTeamPerfOverallPlot <- renderPlot({
+
+
+  ################################ BBL Teams's overall performance ##############################
+  # Analyze overall BBL team performance plots
+  output$BBLTeamPerfOverallPlots <- renderPlot({
+    printOrPlotTeamPerfOverall(input, output,"BBL")
+
+  })
+
+  output$BBLTeamPerfOverallPlotly <- renderPlotly({
     printOrPlotTeamPerfOverall(input, output,"BBL")
 
   })
@@ -804,16 +869,24 @@ shinyServer(function(input, output,session) {
     a
 
   })
+
   # Output either a table or a plot
   output$printOrPlotBBLTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("BBLTeamPerfOverallPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"BBL"))){
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"BBL"))){
       tableOutput("BBLTeamPerfOverallPrint")
     }
     else{ #Else plot
-      plotOutput("BBLTeamPerfOverallPlot")
+      if(input$plotOrTable2BBL == 1){
+        plotOutput("BBLTeamPerfOverallPlots")
+      } else if(input$plotOrTable2BBL == 2){
+        plotlyOutput("BBLTeamPerfOverallPlotly")
+      }
     }
-
   })
 
 

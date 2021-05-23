@@ -729,10 +729,19 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            sidebarPanel(
                                                              selectInput('batsmanFuncBBL', 'Select function', batsmanFuncs),
                                                              selectInput('batsmanBBL', 'Select batsman', BBLBatsmen,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntvBBL", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('batsmanPlotBBL'),
-                                                             column(7, offset=4,
+
+                                                             uiOutput('batsmanPlotBBL'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -740,21 +749,28 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              )
                                                            )
                                                   ),
-
                                                   # Bowlers tab
-                                                  tabPanel("BBL bowlers",
+                                                  tabPanel("BBL T20 bowlers",
 
-                                                           h4('BBL bowler performances'),
+                                                           h4('Analyze BBL T20 bowler performances'),
 
                                                            sidebarPanel(
                                                              selectInput('bowlerFuncBBL', 'Select function', bowlerFuncs),
-                                                             selectInput('bowlerBBL', 'Select T20 bowler', BBLBowlers,selectize=FALSE, size=20)
+                                                             selectInput('bowlerBBL', 'Select bowler', BBLBowlers,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntv1BBL", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
 
 
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('bowlerPlotBBL'),
-                                                             column(7, offset=4,
+                                                             uiOutput('bowlerPlotBBL'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -763,15 +779,15 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  tabPanel("BBL  Match",
+                                                  tabPanel("BBL T20 Match",
                                                            h4('Analyze BBL T20 match'),
                                                            sidebarPanel(
                                                              selectInput('matchFuncBBL', 'Select match function', matchFuncs),
-                                                             selectInput('matchBBL', 'Select BBL match ', BBLMatches,selectize=FALSE, size=15),
+                                                             selectInput('matchBBL', 'Select T20 match ', BBLMatches,selectize=FALSE, size=15),
                                                              uiOutput("selectTeamBBL"),
-                                                             radioButtons("plotOrTableBBL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T)
+                                                             radioButtons("plotOrTableBBL", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T)
 
                                                            ),
                                                            mainPanel(
@@ -784,16 +800,17 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              )
                                                            )
                                                   ),
-                                                  # Analyze Head-to-Head BBL  matches
+
+                                                  # Analyze 2 BBL T20 Teams men's  matches
                                                   tabPanel("Head to head",
-                                                           h4('Head-to-head between BBL teams'),
+                                                           h4('Head-to-head between 2 BBL teams'),
                                                            sidebarPanel(
                                                              selectInput('matches2TeamFuncBBL', 'Select function', matches2TeamsFuncs),
                                                              selectInput('match2BBL', 'Select matches', BBLMatches2Teams,selectize=FALSE, size=13),
                                                              uiOutput("selectTeam2BBL"),
-                                                             radioButtons("plotOrTable1BBL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                             radioButtons("plotOrTable1BBL", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repTypeBBL", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
@@ -801,7 +818,12 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            ),
                                                            mainPanel(
                                                              uiOutput("plotOrPrintBBLMatch2teams"),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -810,7 +832,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  # Analyze BBL T20 Team Overall Perf
+                                                  # Analyze BBLens Team Overall Perf
                                                   tabPanel("Overall Performance",
                                                            h4("Analyze BBL team's overall performance"),
                                                            sidebarPanel(
@@ -818,17 +840,22 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              selectInput('teamMatchesBBL', 'Select the team', BBLTeamsAll,selectize=FALSE, size=13),
                                                              uiOutput("RankBBL"),
                                                              radioButtons("plotOrTable2BBL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repType2BBL", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
                                                            ),
                                                            mainPanel(
                                                              uiOutput('printOrPlotBBLTeamPerfoverall'),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$h5((tags$i("Dec 14, 2020"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
