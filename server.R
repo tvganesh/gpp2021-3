@@ -1159,33 +1159,74 @@ shinyServer(function(input, output,session) {
     }
   })
 
-  ##########################################################################################
+  ############################################ PSL ##############################################
+  ##################################################################################################
   # PSL T20
 
   # Analyze and display batsmen plots
-  output$batsmanPlotPSL <- renderPlot({
-    analyzeBatsmen(input$batsmanPSL,input$batsmanFuncPSL, "PSL")
+  output$batsmanPlotsPSL <- renderPlot({
+    analyzeBatsmen(input$batsmanPSL,input$batsmanFuncPSL, "PSL",input$staticIntvPSL)
 
   })
+
+  output$batsmanPlotlyPSL <- renderPlotly({
+    analyzeBatsmen(input$batsmanPSL,input$batsmanFuncPSL, "PSL",input$staticIntvPSL)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotPSL <- renderUI({
+    if(input$staticIntvPSL == 1){
+      plotOutput("batsmanPlotsPSL")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncPSL =="Dismissals of batsman" || input$batsmanFuncPSL == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsPSL")
+      else
+        plotlyOutput("batsmanPlotlyPSL")
+    }
+
+  })
+
+
 
   # Analyze and display bowler plots
-  output$bowlerPlotPSL <- renderPlot({
-    analyzeBowlers(input$bowlerPSL,input$bowlerFuncPSL, "PSL")
+  output$bowlerPlotsPSL <- renderPlot({
+    analyzeBowlers(input$bowlerPSL,input$bowlerFuncPSL,"PSL",input$staticIntv1PSL)
   })
 
-  ########################################  PSL T20 Match  #############################################
-  # Analyze and display T20 Match plot
-  output$PSLMatchPlot <- renderPlot({
-    print("t20 plot")
+  output$bowlerPlotlyPSL <- renderPlotly({
+    analyzeBowlers(input$bowlerPSL,input$bowlerFuncPSL, "PSL",input$staticIntv1PSL)
+  })
+
+  output$bowlerPlotPSL <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsPSL")
+    }   else{
+      if(input$bowlerFuncPSL == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsPSL")
+      else
+        plotlyOutput("bowlerPlotlyPSL")
+    }
+
+  })
+
+
+  output$PSLMatchPlots <- renderPlot({
     printOrPlotMatch(input, output,"PSL")
 
   })
 
-  # Analyze and display T20 Match table
+  output$PSLMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"PSL")
+
+  })
+
+  # Analyze and display PSL Match table
   output$PSLMatchPrint <- renderTable({
-    print("t20 print")
     a <- printOrPlotMatch(input, output,"PSL")
-    head(a)
     a
 
   })
@@ -1193,13 +1234,101 @@ shinyServer(function(input, output,session) {
   output$plotOrPrintPSLMatch <-  renderUI({
     # Check if output is a dataframe. If so, print
     if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"PSL"))){
-      print("Hello&&&&&&&&&&&&&&&")
       tableOutput("PSLMatchPrint")
     }
     else{ #Else plot
-      plotOutput("PSLMatchPlot")
+      if(input$plotOrTablePSL == 1){
+        plotOutput("PSLMatchPlots")
+      } else{
+        plotlyOutput("PSLMatchPlotly")
+      }
+
     }
 
+  })
+
+  #################################### PSL  Matches between 2 teams ######################
+  # Analyze Head to head confrontation of PSL Mens teams
+
+  # Analyze and display PSL Matches between 2 teams plot
+  output$PSLMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"PSL")
+
+  })
+
+  output$PSLMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"PSL")
+
+  })
+
+  # Analyze and display PSL Match table
+  output$PSLMatch2TeamsPrint <- renderTable({
+    print("table")
+    a <- printOrPlotMatch2Teams(input, output,"PSL")
+    a
+    #a
+  })
+
+  # Output either a table or a plot
+  output$plotOrPrintPSLMatch2teams <-  renderUI({
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1PSL == 3){
+      plotlyOutput("PSLMatch2TeamsPlotly")
+    }
+    # Check if output is a dataframe. If so, print
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"PSL"))){
+      tableOutput("PSLMatch2TeamsPrint")
+    }
+    else{ #Else plot
+      if(input$plotOrTable1PSL == 1){
+        plotOutput("PSLMatch2TeamsPlots")
+      } else if(input$plotOrTable1PSL == 2){
+        plotlyOutput("PSLMatch2TeamsPlotly")
+      }
+    }
+
+  })
+
+
+
+  ################################ PSL Teams's overall performance ##############################
+  # Analyze overall PSL team performance plots
+  output$PSLTeamPerfOverallPlots <- renderPlot({
+    printOrPlotTeamPerfOverall(input, output,"PSL")
+
+  })
+
+  output$PSLTeamPerfOverallPlotly <- renderPlotly({
+    printOrPlotTeamPerfOverall(input, output,"PSL")
+
+  })
+
+  # Analyze and display PSL Match table
+  output$PSLTeamPerfOverallPrint <- renderTable({
+    a <- printOrPlotTeamPerfOverall(input, output,"PSL")
+    a
+
+  })
+
+  # Output either a table or a plot
+  output$printOrPlotPSLTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("PSLTeamPerfOverallPlotly")
+    }
+    # Check if output is a dataframe. If so, print
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"PSL"))){
+      tableOutput("PSLTeamPerfOverallPrint")
+    }
+    else{ #Else plot
+      if(input$plotOrTable2PSL == 1){
+        plotOutput("PSLTeamPerfOverallPlots")
+      } else if(input$plotOrTable2PSL == 2){
+        plotlyOutput("PSLTeamPerfOverallPlotly")
+      }
+    }
   })
 
   ################################ Rank PSL ##############################
@@ -1251,61 +1380,6 @@ shinyServer(function(input, output,session) {
       tableOutput("PSLRankBowlersPrint")
 
     }
-  })
-
-  #################################### PSL  Matches between 2 teams ######################
-  # Analyze Head to head confrontation of PSL T20  teams
-
-  # Analyze and display PSL T20  Matches between 2 teams plot
-  output$PSLMatch2TeamsPlot <- renderPlot({
-    print("Women plot")
-    printOrPlotMatch2Teams(input, output,"PSL")
-
-  })
-
-  # Analyze and display PSL Match table
-  output$PSLMatch2TeamsPrint <- renderTable({
-    print("Women table")
-    a <- printOrPlotMatch2Teams(input, output,"PSL")
-    a
-  })
-
-  # Output either a table or a plot
-  output$plotOrPrintPSLMatch2teams <-  renderUI({
-    print("Women's match ")
-    # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"PSL"))){
-      tableOutput("PSLMatch2TeamsPrint")
-    }
-    else{ #Else plot
-      plotOutput("PSLMatch2TeamsPlot")
-    }
-
-  })
-
-  ################################ PSL T20  Teams's overall performance ##############################
-  # Analyze overall PSL  team performance plots
-  output$PSLTeamPerfOverallPlot <- renderPlot({
-    printOrPlotTeamPerfOverall(input, output,"PSL")
-
-  })
-
-  # Analyze and display PSL Match table
-  output$PSLTeamPerfOverallPrint <- renderTable({
-    a <- printOrPlotTeamPerfOverall(input, output,"PSL")
-    a
-
-  })
-  # Output either a table or a plot
-  output$printOrPlotPSLTeamPerfoverall <-  renderUI({
-    # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"PSL"))){
-      tableOutput("PSLTeamPerfOverallPrint")
-    }
-    else{ #Else plot
-      plotOutput("PSLTeamPerfOverallPlot")
-    }
-
   })
 
   ##########################################################################################

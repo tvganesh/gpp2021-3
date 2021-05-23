@@ -1177,6 +1177,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
 
                     )),
                     ############################# PSL T20 ################################
+                    #######################################################################
                     tabPanel("PSL T20",navbarPage("GooglyPlusPlus - Pakistan Super League",
                                                   # Batsman tab
                                                   tabPanel("PSL T20 batsman",
@@ -1184,10 +1185,19 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            sidebarPanel(
                                                              selectInput('batsmanFuncPSL', 'Select function', batsmanFuncs),
                                                              selectInput('batsmanPSL', 'Select batsman', PSLBatsmen,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntvPSL", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('batsmanPlotPSL'),
-                                                             column(7, offset=4,
+
+                                                             uiOutput('batsmanPlotPSL'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1196,19 +1206,27 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
                                                   ),
                                                   # Bowlers tab
-                                                  tabPanel("PSL bowlers",
+                                                  tabPanel("PSL T20 bowlers",
 
-                                                           h4('PSL bowler performances'),
+                                                           h4('Analyze PSL T20 bowler performances'),
 
                                                            sidebarPanel(
                                                              selectInput('bowlerFuncPSL', 'Select function', bowlerFuncs),
-                                                             selectInput('bowlerPSL', 'Select T20 bowler', PSLBowlers,selectize=FALSE, size=20)
+                                                             selectInput('bowlerPSL', 'Select bowler', PSLBowlers,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntv1PSL", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
 
 
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('bowlerPlotPSL'),
-                                                             column(7, offset=4,
+                                                             uiOutput('bowlerPlotPSL'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1217,15 +1235,15 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  tabPanel("PSL  Match",
+                                                  tabPanel("PSL T20 Match",
                                                            h4('Analyze PSL T20 match'),
                                                            sidebarPanel(
                                                              selectInput('matchFuncPSL', 'Select match function', matchFuncs),
-                                                             selectInput('matchPSL', 'Select PSL match ', PSLMatches,selectize=FALSE, size=15),
+                                                             selectInput('matchPSL', 'Select T20 match ', PSLMatches,selectize=FALSE, size=15),
                                                              uiOutput("selectTeamPSL"),
-                                                             radioButtons("plotOrTablePSL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T)
+                                                             radioButtons("plotOrTablePSL", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T)
 
                                                            ),
                                                            mainPanel(
@@ -1238,16 +1256,17 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              )
                                                            )
                                                   ),
-                                                  # Analyze Head-to-Head PSL  matches
+
+                                                  # Analyze 2 PSL T20 Teams men's  matches
                                                   tabPanel("Head to head",
-                                                           h4('Head-to-head between PSL teams'),
+                                                           h4('Head-to-head between 2 PSL teams'),
                                                            sidebarPanel(
                                                              selectInput('matches2TeamFuncPSL', 'Select function', matches2TeamsFuncs),
                                                              selectInput('match2PSL', 'Select matches', PSLMatches2Teams,selectize=FALSE, size=13),
                                                              uiOutput("selectTeam2PSL"),
-                                                             radioButtons("plotOrTable1PSL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                             radioButtons("plotOrTable1PSL", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repTypePSL", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
@@ -1255,7 +1274,12 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            ),
                                                            mainPanel(
                                                              uiOutput("plotOrPrintPSLMatch2teams"),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1264,7 +1288,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  # Analyze PSL T20 Team Overall Perf
+                                                  # Analyze PSL Team Overall Perf
                                                   tabPanel("Overall Performance",
                                                            h4("Analyze PSL team's overall performance"),
                                                            sidebarPanel(
@@ -1272,17 +1296,22 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              selectInput('teamMatchesPSL', 'Select the team', PSLTeamsAll,selectize=FALSE, size=13),
                                                              uiOutput("RankPSL"),
                                                              radioButtons("plotOrTable2PSL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repType2PSL", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
                                                            ),
                                                            mainPanel(
                                                              uiOutput('printOrPlotPSLTeamPerfoverall'),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$h5((tags$i("Dec 14, 2020"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
