@@ -1405,17 +1405,27 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
 
                     )),
                     ############################# WBB T20 ################################
+                    #####################################################################
                     tabPanel("WBBL T20",navbarPage("GooglyPlusPlus - Women's Big Bash League",
                                                    # Batsman tab
                                                    tabPanel("WBB T20 batsman",
-                                                            h4('Analyze WBBL T20 batsman performances'),
+                                                            h4('Analyze WBB T20 batsman performances'),
                                                             sidebarPanel(
                                                               selectInput('batsmanFuncWBB', 'Select function', batsmanFuncs),
                                                               selectInput('batsmanWBB', 'Select batsman', WBBBatsmen,selectize=FALSE, size=20),
+                                                              radioButtons("staticIntvWBB", label = h4("Plot type"),
+                                                                           choices = c("interactive" = 2,"static" = 1 ),
+                                                                           selected = 2,inline=T)
                                                             ),
                                                             mainPanel(
-                                                              plotOutput('batsmanPlotWBB'),
-                                                              column(7, offset=4,
+
+                                                              uiOutput('batsmanPlotWBB'),
+                                                              column(12, offset=6,
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                      tags$h5((tags$i("Feb 6, 2021"))),
                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1423,38 +1433,45 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                               )
                                                             )
                                                    ),
-
                                                    # Bowlers tab
-                                                   tabPanel("WBB bowlers",
+                                                   tabPanel("WBB T20 bowlers",
 
-                                                            h4('WBB bowler performances'),
+                                                            h4('Analyze WBB T20 bowler performances'),
 
                                                             sidebarPanel(
                                                               selectInput('bowlerFuncWBB', 'Select function', bowlerFuncs),
-                                                              selectInput('bowlerWBB', 'Select T20 bowler', WBBBowlers,selectize=FALSE, size=20)
+                                                              selectInput('bowlerWBB', 'Select bowler', WBBBowlers,selectize=FALSE, size=20),
+                                                              radioButtons("staticIntv1WBB", label = h4("Plot type"),
+                                                                           choices = c("interactive" = 2,"static" = 1 ),
+                                                                           selected = 2,inline=T)
 
 
                                                             ),
                                                             mainPanel(
-                                                              plotOutput('bowlerPlotWBB'),
-                                                              column(7, offset=4,
+                                                              uiOutput('bowlerPlotWBB'),
+                                                              column(12, offset=6,
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                      tags$h5((tags$i("Feb 6, 2021"))),
-                                                                     tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                               )
                                                             )
 
                                                    ),
-                                                   tabPanel("WBB  Match",
-                                                            h4('Analyze WBBL T20 match'),
+                                                   tabPanel("WBB T20 Match",
+                                                            h4('Analyze WBB T20 match'),
                                                             sidebarPanel(
                                                               selectInput('matchFuncWBB', 'Select match function', matchFuncs),
-                                                              selectInput('matchWBB', 'Select WBB match ', WBBMatches,selectize=FALSE, size=15),
+                                                              selectInput('matchWBB', 'Select T20 match ', WBBMatches,selectize=FALSE, size=15),
                                                               uiOutput("selectTeamWBB"),
-                                                              radioButtons("plotOrTableWBB", label = h4("Plot or table"),
-                                                                           choices = c("Plot" = 1, "Table" = 2),
-                                                                           selected = 1,inline=T)
+                                                              radioButtons("plotOrTableWBB", label = h4("Plot(static,interactive) or table"),
+                                                                           choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                           selected = 2,inline=T)
 
                                                             ),
                                                             mainPanel(
@@ -1467,16 +1484,17 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                               )
                                                             )
                                                    ),
-                                                   # Analyze Head-to-Head WBBL  matches
+
+                                                   # Analyze 2 WBB T20 Teams men's  matches
                                                    tabPanel("Head to head",
-                                                            h4('Head-to-head between Womens BBL teams'),
+                                                            h4('Head-to-head between 2 WBB teams'),
                                                             sidebarPanel(
                                                               selectInput('matches2TeamFuncWBB', 'Select function', matches2TeamsFuncs),
                                                               selectInput('match2WBB', 'Select matches', WBBMatches2Teams,selectize=FALSE, size=13),
                                                               uiOutput("selectTeam2WBB"),
-                                                              radioButtons("plotOrTable1WBB", label = h4("Plot or table"),
-                                                                           choices = c("Plot" = 1, "Table" = 2),
-                                                                           selected = 1,inline=T),
+                                                              radioButtons("plotOrTable1WBB", label = h4("Plot(static,interactive) or table"),
+                                                                           choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                           selected = 2,inline=T),
                                                               radioButtons("repTypeWBB", label = h4("Report Type"),
                                                                            choices = c("Summary" = 1, "Detailed" = 2),
                                                                            selected = 1,inline=T)
@@ -1484,7 +1502,12 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                             ),
                                                             mainPanel(
                                                               uiOutput("plotOrPrintWBBMatch2teams"),
-                                                              column(7, offset=4,
+                                                              column(12, offset=6,
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                      tags$h5((tags$i("Feb 6, 2021"))),
                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1493,7 +1516,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                             )
 
                                                    ),
-                                                   # Analyze WBBL T20 Team Overall Perf
+                                                   # Analyze WBB Team Overall Perf
                                                    tabPanel("Overall Performance",
                                                             h4("Analyze WBB team's overall performance"),
                                                             sidebarPanel(
@@ -1501,17 +1524,22 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                               selectInput('teamMatchesWBB', 'Select the team', WBBTeamsAll,selectize=FALSE, size=13),
                                                               uiOutput("RankWBB"),
                                                               radioButtons("plotOrTable2WBB", label = h4("Plot or table"),
-                                                                           choices = c("Plot" = 1, "Table" = 2),
-                                                                           selected = 1,inline=T),
+                                                                           choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                           selected = 2,inline=T),
                                                               radioButtons("repType2WBB", label = h4("Report Type"),
                                                                            choices = c("Summary" = 1, "Detailed" = 2),
                                                                            selected = 1,inline=T)
                                                             ),
                                                             mainPanel(
                                                               uiOutput('printOrPlotWBBTeamPerfoverall'),
-                                                              column(7, offset=4,
+                                                              column(12, offset=6,
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
+                                                                     br(),
                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                                     tags$h5((tags$i("Feb 6, 2021"))),
+                                                                     tags$h5((tags$i("Dec 14, 2020"))),
                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                               )

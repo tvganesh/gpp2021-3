@@ -1386,29 +1386,71 @@ shinyServer(function(input, output,session) {
   # WBBL T20
 
   # Analyze and display batsmen plots
-  output$batsmanPlotWBB <- renderPlot({
-    analyzeBatsmen(input$batsmanWBB,input$batsmanFuncWBB, "WBB")
+  output$batsmanPlotsWBB <- renderPlot({
+    analyzeBatsmen(input$batsmanWBB,input$batsmanFuncWBB, "WBB",input$staticIntvWBB)
 
   })
+
+  output$batsmanPlotlyWBB <- renderPlotly({
+    analyzeBatsmen(input$batsmanWBB,input$batsmanFuncWBB, "WBB",input$staticIntvWBB)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotWBB <- renderUI({
+    if(input$staticIntvWBB == 1){
+      plotOutput("batsmanPlotsWBB")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncWBB =="Dismissals of batsman" || input$batsmanFuncWBB == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsWBB")
+      else
+        plotlyOutput("batsmanPlotlyWBB")
+    }
+
+  })
+
+
 
   # Analyze and display bowler plots
-  output$bowlerPlotWBB <- renderPlot({
-    analyzeBowlers(input$bowlerWBB,input$bowlerFuncWBB, "WBB")
+  output$bowlerPlotsWBB <- renderPlot({
+    analyzeBowlers(input$bowlerWBB,input$bowlerFuncWBB,"WBB",input$staticIntv1WBB)
   })
 
-  ########################################  WBBL T20 Match  #############################################
+  output$bowlerPlotlyWBB <- renderPlotly({
+    analyzeBowlers(input$bowlerWBB,input$bowlerFuncWBB, "WBB",input$staticIntv1WBB)
+  })
+
+  output$bowlerPlotWBB <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsWBB")
+    }   else{
+      if(input$bowlerFuncWBB == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsWBB")
+      else
+        plotlyOutput("bowlerPlotlyWBB")
+    }
+
+  })
+
+
+  ######################################## WBB Match  #############################################
   # Analyze and display T20 Match plot
-  output$WBBMatchPlot <- renderPlot({
-    print("t20 plot")
+  output$WBBMatchPlots <- renderPlot({
     printOrPlotMatch(input, output,"WBB")
 
   })
 
-  # Analyze and display T20 Match table
+  output$WBBMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"WBB")
+
+  })
+
+  # Analyze and display WBB Match table
   output$WBBMatchPrint <- renderTable({
-    print("t20 print")
     a <- printOrPlotMatch(input, output,"WBB")
-    head(a)
     a
 
   })
@@ -1416,68 +1458,101 @@ shinyServer(function(input, output,session) {
   output$plotOrPrintWBBMatch <-  renderUI({
     # Check if output is a dataframe. If so, print
     if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"WBB"))){
-      print("Hello&&&&&&&&&&&&&&&")
       tableOutput("WBBMatchPrint")
     }
     else{ #Else plot
-      plotOutput("WBBMatchPlot")
+      if(input$plotOrTableWBB == 1){
+        plotOutput("WBBMatchPlots")
+      } else{
+        plotlyOutput("WBBMatchPlotly")
+      }
+
     }
 
   })
 
   #################################### WBB  Matches between 2 teams ######################
-  # Analyze Head to head confrontation of WBB T20  teams
+  # Analyze Head to head confrontation of WBB Mens teams
 
-  # Analyze and display WBB T20  Matches between 2 teams plot
-  output$WBBMatch2TeamsPlot <- renderPlot({
-    print("Women plot")
+  # Analyze and display WBB Matches between 2 teams plot
+  output$WBBMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"WBB")
+
+  })
+
+  output$WBBMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
     printOrPlotMatch2Teams(input, output,"WBB")
 
   })
 
   # Analyze and display WBB Match table
   output$WBBMatch2TeamsPrint <- renderTable({
-    print("Women table")
+    print("table")
     a <- printOrPlotMatch2Teams(input, output,"WBB")
     a
+    #a
   })
 
   # Output either a table or a plot
   output$plotOrPrintWBBMatch2teams <-  renderUI({
-    print("Women's match ")
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1WBB == 3){
+      plotlyOutput("WBBMatch2TeamsPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"WBB"))){
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"WBB"))){
       tableOutput("WBBMatch2TeamsPrint")
     }
     else{ #Else plot
-      plotOutput("WBBMatch2TeamsPlot")
+      if(input$plotOrTable1WBB == 1){
+        plotOutput("WBBMatch2TeamsPlots")
+      } else if(input$plotOrTable1WBB == 2){
+        plotlyOutput("WBBMatch2TeamsPlotly")
+      }
     }
 
   })
 
-  ################################ WBB T20  Teams's overall performance ##############################
-  # Analyze overall WBB  team performance plots
-  output$WBBTeamPerfOverallPlot <- renderPlot({
+
+
+  ################################ WBB Teams's overall performance ##############################
+  # Analyze overall WBB team performance plots
+  output$WBBTeamPerfOverallPlots <- renderPlot({
     printOrPlotTeamPerfOverall(input, output,"WBB")
 
   })
 
-  # Analyze and display WBB Match table
+  output$WBBTeamPerfOverallPlotly <- renderPlotly({
+    printOrPlotTeamPerfOverall(input, output,"WBB")
+
+  })
+
+  # Analyze and display IPL Match table
   output$WBBTeamPerfOverallPrint <- renderTable({
     a <- printOrPlotTeamPerfOverall(input, output,"WBB")
     a
 
   })
+
   # Output either a table or a plot
   output$printOrPlotWBBTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("WBBTeamPerfOverallPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"WBB"))){
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"WBB"))){
       tableOutput("WBBTeamPerfOverallPrint")
     }
     else{ #Else plot
-      plotOutput("WBBTeamPerfOverallPlot")
+      if(input$plotOrTable2WBB == 1){
+        plotOutput("WBBTeamPerfOverallPlots")
+      } else if(input$plotOrTable2WBB == 2){
+        plotlyOutput("WBBTeamPerfOverallPlotly")
+      }
     }
-
   })
 
   ################################ Rank WBB ##############################
