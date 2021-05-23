@@ -731,9 +731,19 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                     sidebarPanel(
                                                       selectInput('batsmanFuncBBL', 'Select function', batsmanFuncs),
                                                       selectInput('batsmanBBL', 'Select batsman', BBLBatsmen,selectize=FALSE, size=20),
+                                                      radioButtons("staticIntvBBL", label = h4("Plot type"),
+                                                                   choices = c("interactive" = 2,"static" = 1 ),
+                                                                   selected = 2,inline=T)
                                                     ),
                                                     mainPanel(
-                                                      plotOutput('batsmanPlotBBL'),
+                                                      uiOutput('batsmanPlotBBL'),
+
+                                                      column(12, offset=6,
+                                                             br(),
+                                                             br(),
+                                                             br(),
+                                                             br(),
+                                                             br(),
                                                       column(7, offset=4,
                                                              tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                              tags$h5((tags$i("Feb 6, 2021"))),
@@ -747,16 +757,22 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                          tabPanel("BBL bowlers",
 
                                            h4('BBL bowler performances'),
-
                                            sidebarPanel(
                                              selectInput('bowlerFuncBBL', 'Select function', bowlerFuncs),
-                                             selectInput('bowlerBBL', 'Select T20 bowler', BBLBowlers,selectize=FALSE, size=20)
-
+                                             selectInput('bowlerBBL', 'Select BBL bowler', BBLBowlers,selectize=FALSE, size=20),
+                                             radioButtons("staticIntv1BBL", label = h4("Plot type"),
+                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                          selected = 2,inline=T)
 
                                            ),
                                            mainPanel(
-                                             plotOutput('bowlerPlotBBL'),
-                                             column(7, offset=4,
+                                             uiOutput('bowlerPlotBBL'),
+                                             column(12, offset=6,
+                                                    br(),
+                                                    br(),
+                                                    br(),
+                                                    br(),
+                                                    br(),
                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
