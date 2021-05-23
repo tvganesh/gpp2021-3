@@ -9,7 +9,7 @@
 #########################################################################################################
 
 # Analyze IPL batsmen
-analyzeBatsmen <- function(batsman,func, t20type="IPL",staticIntv) {
+analyzeBatsmen <- function(batsman,func, t20type="IPL",staticIntv=1) {
 
 
     # Return when name is NULL at start

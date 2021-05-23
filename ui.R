@@ -832,7 +832,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  # Analyze BBLens Team Overall Perf
+                                                  # Analyze BBL Team Overall Perf
                                                   tabPanel("Overall Performance",
                                                            h4("Analyze BBL team's overall performance"),
                                                            sidebarPanel(
@@ -1640,10 +1640,19 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            sidebarPanel(
                                                              selectInput('batsmanFuncCPL', 'Select function', batsmanFuncs),
                                                              selectInput('batsmanCPL', 'Select batsman', CPLBatsmen,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntvCPL", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('batsmanPlotCPL'),
-                                                             column(7, offset=4,
+
+                                                             uiOutput('batsmanPlotCPL'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1651,21 +1660,28 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              )
                                                            )
                                                   ),
-
                                                   # Bowlers tab
-                                                  tabPanel("CPL bowlers",
+                                                  tabPanel("CPL T20 bowlers",
 
-                                                           h4('CPL bowler performances'),
+                                                           h4('Analyze CPL T20 bowler performances'),
 
                                                            sidebarPanel(
                                                              selectInput('bowlerFuncCPL', 'Select function', bowlerFuncs),
-                                                             selectInput('bowlerCPL', 'Select T20 bowler', CPLBowlers,selectize=FALSE, size=20)
+                                                             selectInput('bowlerCPL', 'Select bowler', CPLBowlers,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntv1CPL", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
 
 
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('bowlerPlotCPL'),
-                                                             column(7, offset=4,
+                                                             uiOutput('bowlerPlotCPL'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1674,15 +1690,15 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  tabPanel("CPL  Match",
+                                                  tabPanel("CPL T20 Match",
                                                            h4('Analyze CPL T20 match'),
                                                            sidebarPanel(
                                                              selectInput('matchFuncCPL', 'Select match function', matchFuncs),
-                                                             selectInput('matchCPL', 'Select CPL match ', CPLMatches,selectize=FALSE, size=15),
+                                                             selectInput('matchCPL', 'Select T20 match ', CPLMatches,selectize=FALSE, size=15),
                                                              uiOutput("selectTeamCPL"),
-                                                             radioButtons("plotOrTableCPL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T)
+                                                             radioButtons("plotOrTableCPL", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T)
 
                                                            ),
                                                            mainPanel(
@@ -1695,16 +1711,17 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              )
                                                            )
                                                   ),
-                                                  # Analyze Head-to-Head CPL  matches
+
+                                                  # Analyze 2 CPL T20 Teams men's  matches
                                                   tabPanel("Head to head",
-                                                           h4('Head-to-head between CPL teams'),
+                                                           h4('Head-to-head between 2 CPL teams'),
                                                            sidebarPanel(
                                                              selectInput('matches2TeamFuncCPL', 'Select function', matches2TeamsFuncs),
                                                              selectInput('match2CPL', 'Select matches', CPLMatches2Teams,selectize=FALSE, size=13),
                                                              uiOutput("selectTeam2CPL"),
-                                                             radioButtons("plotOrTable1CPL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                             radioButtons("plotOrTable1CPL", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repTypeCPL", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
@@ -1712,7 +1729,12 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            ),
                                                            mainPanel(
                                                              uiOutput("plotOrPrintCPLMatch2teams"),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1721,7 +1743,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  # Analyze CPL T20 Team Overall Perf
+                                                  # Analyze CPL Team Overall Perf
                                                   tabPanel("Overall Performance",
                                                            h4("Analyze CPL team's overall performance"),
                                                            sidebarPanel(
@@ -1729,17 +1751,22 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              selectInput('teamMatchesCPL', 'Select the team', CPLTeamsAll,selectize=FALSE, size=13),
                                                              uiOutput("RankCPL"),
                                                              radioButtons("plotOrTable2CPL", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repType2CPL", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
                                                            ),
                                                            mainPanel(
                                                              uiOutput('printOrPlotCPLTeamPerfoverall'),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$h5((tags$i("Dec 14, 2020"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
@@ -1833,236 +1860,236 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                     )),
 
                     ############################# ODI Men ################################
-                    # tabPanel("ODI Men",navbarPage("GooglyPlusPlus - One Day International (ODI) Men",
-                    #                                # Batsman tab
-                    #                                tabPanel("ODI Men batsman",
-                    #                                         h4('Analyze ODI batsman performances'),
-                    #                                         sidebarPanel(
-                    #                                           selectInput('batsmanFuncODIM', 'Select function', batsmanFuncs),
-                    #                                           selectInput('batsmanODIM', 'Select batsman', ODIMBatsmen,selectize=FALSE, size=20),
-                    #                                         ),
-                    #                                         mainPanel(
-                    #                                           plotOutput('batsmanPlotODIM'),
-                    #                                           column(7, offset=4,
-                    #                                                  tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                                  tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                                  tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                                  tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                           )
-                    #                                         )
-                    #                                ),
-                    #                               # Bowlers tab
-                    #                               tabPanel("ODI Men bowlers",
-                    #
-                    #                                        h4('ODI  bowler performances'),
-                    #
-                    #                                        sidebarPanel(
-                    #                                          selectInput('bowlerFuncODIM', 'Select function', bowlerFuncs),
-                    #                                          selectInput('bowlerODIM', 'Select T20 bowler', ODIMBowlers,selectize=FALSE, size=20)
-                    #
-                    #
-                    #                                        ),
-                    #                                        mainPanel(
-                    #                                          plotOutput('bowlerPlotODIM'),
-                    #                                          column(7, offset=4,
-                    #                                                 tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                                 tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                                 tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                                 tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                          )
-                    #                                        )
-                    #
-                    #                               ),
-                    #                               tabPanel("ODI Mens  Match",
-                    #                                        h4('Analyze ODI Mens match'),
-                    #                                        sidebarPanel(
-                    #                                          selectInput('matchFuncODIM', 'Select match function', matchFuncs),
-                    #                                          selectInput('matchODIM', 'Select ODIM match ', ODIMMatches,selectize=FALSE, size=15),
-                    #                                          uiOutput("selectTeamODIM"),
-                    #                                          radioButtons("plotOrTableODIM", label = h4("Plot or table"),
-                    #                                                       choices = c("Plot" = 1, "Table" = 2),
-                    #                                                       selected = 1,inline=T)
-                    #
-                    #                                        ),
-                    #                                        mainPanel(
-                    #                                          uiOutput("plotOrPrintODIMMatch"),
-                    #                                          column(7, offset=4,
-                    #                                                 tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                                 tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                                 tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                                 tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                          )
-                    #                                        )
-                    #                               ),
-                    #                               # Analyze Head-to-Head Mens ODI  matches
-                    #                               tabPanel("Head to head",
-                    #                                        h4('Head-to-head between Mens ODI teams'),
-                    #                                        sidebarPanel(
-                    #                                          selectInput('matches2TeamFuncODIM', 'Select function', matches2TeamsFuncs),
-                    #                                          selectInput('match2ODIM', 'Select matches', ODIMMatches2Teams,selectize=FALSE, size=13),
-                    #                                          uiOutput("selectTeam2ODIM"),
-                    #                                          radioButtons("plotOrTable1ODIM", label = h4("Plot or table"),
-                    #                                                       choices = c("Plot" = 1, "Table" = 2),
-                    #                                                       selected = 1,inline=T),
-                    #                                          radioButtons("repTypeODIM", label = h4("Report Type"),
-                    #                                                       choices = c("Summary" = 1, "Detailed" = 2),
-                    #                                                       selected = 1,inline=T)
-                    #
-                    #                                        ),
-                    #                                        mainPanel(
-                    #                                          uiOutput("plotOrPrintODIMMatch2teams"),
-                    #                                          column(7, offset=4,
-                    #                                                 tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                                 tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                                 tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                                 tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                          )
-                    #                                        )
-                    #
-                    #                               ),
-                    #                               # Analyze ODI Men Team Overall Perf
-                    #                               tabPanel("Overall Performance",
-                    #                                        h4("Analyze ODI Men team's overall performance"),
-                    #                                        sidebarPanel(
-                    #                                          selectInput('overallperfFuncODIM', 'Select function', teamOverallPerfFunc),
-                    #                                          selectInput('teamMatchesODIM', 'Select the team', ODIMTeamsAll,selectize=FALSE, size=13),
-                    #                                          uiOutput("RankODIM"),
-                    #                                          radioButtons("plotOrTable2ODIM", label = h4("Plot or table"),
-                    #                                                       choices = c("Plot" = 1, "Table" = 2),
-                    #                                                       selected = 1,inline=T),
-                    #                                          radioButtons("repType2ODIM", label = h4("Report Type"),
-                    #                                                       choices = c("Summary" = 1, "Detailed" = 2),
-                    #                                                       selected = 1,inline=T)
-                    #                                        ),
-                    #                                        mainPanel(
-                    #                                          uiOutput('printOrPlotODIMTeamPerfoverall'),
-                    #                                          column(7, offset=4,
-                    #                                                 tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                                 tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                                 tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                                 tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                          )
-                    #                                        )
-                    #
-                    #                               )
-                    #
-                    #                  )),
+                    tabPanel("ODI Men",navbarPage("GooglyPlusPlus - One Day International (ODI) Men",
+                                                   # Batsman tab
+                                                   tabPanel("ODI Men batsman",
+                                                            h4('Analyze ODI batsman performances'),
+                                                            sidebarPanel(
+                                                              selectInput('batsmanFuncODIM', 'Select function', batsmanFuncs),
+                                                              selectInput('batsmanODIM', 'Select batsman', ODIMBatsmen,selectize=FALSE, size=20),
+                                                            ),
+                                                            mainPanel(
+                                                              plotOutput('batsmanPlotODIM'),
+                                                              column(7, offset=4,
+                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                     tags$h5((tags$i("Feb 6, 2021"))),
+                                                                     tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                              )
+                                                            )
+                                                   ),
+                                                  # Bowlers tab
+                                                  tabPanel("ODI Men bowlers",
+
+                                                           h4('ODI  bowler performances'),
+
+                                                           sidebarPanel(
+                                                             selectInput('bowlerFuncODIM', 'Select function', bowlerFuncs),
+                                                             selectInput('bowlerODIM', 'Select T20 bowler', ODIMBowlers,selectize=FALSE, size=20)
+
+
+                                                           ),
+                                                           mainPanel(
+                                                             plotOutput('bowlerPlotODIM'),
+                                                             column(7, offset=4,
+                                                                    tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                             )
+                                                           )
+
+                                                  ),
+                                                  tabPanel("ODI Mens  Match",
+                                                           h4('Analyze ODI Mens match'),
+                                                           sidebarPanel(
+                                                             selectInput('matchFuncODIM', 'Select match function', matchFuncs),
+                                                             selectInput('matchODIM', 'Select ODIM match ', ODIMMatches,selectize=FALSE, size=15),
+                                                             uiOutput("selectTeamODIM"),
+                                                             radioButtons("plotOrTableODIM", label = h4("Plot or table"),
+                                                                          choices = c("Plot" = 1, "Table" = 2),
+                                                                          selected = 1,inline=T)
+
+                                                           ),
+                                                           mainPanel(
+                                                             uiOutput("plotOrPrintODIMMatch"),
+                                                             column(7, offset=4,
+                                                                    tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                             )
+                                                           )
+                                                  ),
+                                                  # Analyze Head-to-Head Mens ODI  matches
+                                                  tabPanel("Head to head",
+                                                           h4('Head-to-head between Mens ODI teams'),
+                                                           sidebarPanel(
+                                                             selectInput('matches2TeamFuncODIM', 'Select function', matches2TeamsFuncs),
+                                                             selectInput('match2ODIM', 'Select matches', ODIMMatches2Teams,selectize=FALSE, size=13),
+                                                             uiOutput("selectTeam2ODIM"),
+                                                             radioButtons("plotOrTable1ODIM", label = h4("Plot or table"),
+                                                                          choices = c("Plot" = 1, "Table" = 2),
+                                                                          selected = 1,inline=T),
+                                                             radioButtons("repTypeODIM", label = h4("Report Type"),
+                                                                          choices = c("Summary" = 1, "Detailed" = 2),
+                                                                          selected = 1,inline=T)
+
+                                                           ),
+                                                           mainPanel(
+                                                             uiOutput("plotOrPrintODIMMatch2teams"),
+                                                             column(7, offset=4,
+                                                                    tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                             )
+                                                           )
+
+                                                  ),
+                                                  # Analyze ODI Men Team Overall Perf
+                                                  tabPanel("Overall Performance",
+                                                           h4("Analyze ODI Men team's overall performance"),
+                                                           sidebarPanel(
+                                                             selectInput('overallperfFuncODIM', 'Select function', teamOverallPerfFunc),
+                                                             selectInput('teamMatchesODIM', 'Select the team', ODIMTeamsAll,selectize=FALSE, size=13),
+                                                             uiOutput("RankODIM"),
+                                                             radioButtons("plotOrTable2ODIM", label = h4("Plot or table"),
+                                                                          choices = c("Plot" = 1, "Table" = 2),
+                                                                          selected = 1,inline=T),
+                                                             radioButtons("repType2ODIM", label = h4("Report Type"),
+                                                                          choices = c("Summary" = 1, "Detailed" = 2),
+                                                                          selected = 1,inline=T)
+                                                           ),
+                                                           mainPanel(
+                                                             uiOutput('printOrPlotODIMTeamPerfoverall'),
+                                                             column(7, offset=4,
+                                                                    tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                             )
+                                                           )
+
+                                                  )
+
+                                     )),
 
                     ############################# ODI Women ################################
-                    # tabPanel("ODI Women",navbarPage("GooglyPlusPlus - One Day International (ODI) Women",
-                    #                           # Batsman tab
-                    #                           tabPanel("ODI Women batsman",
-                    #                                    h4('Analyze ODI batsman performances'),
-                    #                                    sidebarPanel(
-                    #                                      selectInput('batsmanFuncODIW', 'Select function', batsmanFuncs),
-                    #                                      selectInput('batsmanODIW', 'Select batsman', ODIWBatsmen,selectize=FALSE, size=20),
-                    #                                    ),
-                    #                                    mainPanel(
-                    #                                      plotOutput('batsmanPlotODIW'),
-                    #                                      column(7, offset=4,
-                    #                                             tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                             tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                             tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                             tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                      )
-                    #                                    )
-                    #                           ),
-                    #                           # Bowlers tab
-                    #                           tabPanel("ODI Women bowlers",
-                    #
-                    #                                    h4('ODI  bowler performances'),
-                    #
-                    #                                    sidebarPanel(
-                    #                                      selectInput('bowlerFuncODIW', 'Select function', bowlerFuncs),
-                    #                                      selectInput('bowlerODIW', 'Select T20 bowler', ODIWBowlers,selectize=FALSE, size=20)
-                    #
-                    #
-                    #                                    ),
-                    #                                    mainPanel(
-                    #                                      plotOutput('bowlerPlotODIW'),
-                    #                                      column(7, offset=4,
-                    #                                             tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                             tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                             tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                             tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                      )
-                    #                                    )
-                    #                           ),
-                    #                           tabPanel("ODI Womens  Match",
-                    #                                    h4('Analyze ODI Womens match'),
-                    #                                    sidebarPanel(
-                    #                                      selectInput('matchFuncODIW', 'Select match function', matchFuncs),
-                    #                                      selectInput('matchODIW', 'Select ODIW match ', ODIWMatches,selectize=FALSE, size=15),
-                    #                                      uiOutput("selectTeamODIW"),
-                    #                                      radioButtons("plotOrTableODIW", label = h4("Plot or table"),
-                    #                                                   choices = c("Plot" = 1, "Table" = 2),
-                    #                                                   selected = 1,inline=T)
-                    #
-                    #                                    ),
-                    #                                    mainPanel(
-                    #                                      uiOutput("plotOrPrintODIWMatch"),
-                    #                                      column(7, offset=4,
-                    #                                             tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                             tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                             tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),,
-                    #                                             tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                      )
-                    #                                    )
-                    #                           ),
-                    #                           # Analyze Head-to-Head Womens ODI  matches
-                    #                           tabPanel("Head to head",
-                    #                                    h4('Head-to-head between Womens ODI teams'),
-                    #                                    sidebarPanel(
-                    #                                      selectInput('matches2TeamFuncODIW', 'Select function', matches2TeamsFuncs),
-                    #                                      selectInput('match2ODIW', 'Select matches', ODIWMatches2Teams,selectize=FALSE, size=13),
-                    #                                      uiOutput("selectTeam2ODIW"),
-                    #                                      radioButtons("plotOrTable1ODIW", label = h4("Plot or table"),
-                    #                                                   choices = c("Plot" = 1, "Table" = 2),
-                    #                                                   selected = 1,inline=T),
-                    #                                      radioButtons("repTypeODIW", label = h4("Report Type"),
-                    #                                                   choices = c("Summary" = 1, "Detailed" = 2),
-                    #                                                   selected = 1,inline=T)
-                    #
-                    #                                    ),
-                    #                                    mainPanel(
-                    #                                      uiOutput("plotOrPrintODIWMatch2teams"),
-                    #                                      column(7, offset=4,
-                    #                                             tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                             tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                             tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                             tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                      )
-                    #                                    )
-                    #
-                    #                           ),
-                    #                           # Analyze ODI Women Team Overall Perf
-                    #                           tabPanel("Overall Performance",
-                    #                                    h4("Analyze ODI Women team's overall performance"),
-                    #                                    sidebarPanel(
-                    #                                      selectInput('overallperfFuncODIW', 'Select function', teamOverallPerfFunc),
-                    #                                      selectInput('teamMatchesODIW', 'Select the team', ODIWTeamsAll,selectize=FALSE, size=13),
-                    #                                      uiOutput("RankODIW"),
-                    #                                      radioButtons("plotOrTable2ODIW", label = h4("Plot or table"),
-                    #                                                   choices = c("Plot" = 1, "Table" = 2),
-                    #                                                   selected = 1,inline=T),
-                    #                                      radioButtons("repType2ODIW", label = h4("Report Type"),
-                    #                                                   choices = c("Summary" = 1, "Detailed" = 2),
-                    #                                                   selected = 1,inline=T)
-                    #                                    ),
-                    #                                    mainPanel(
-                    #                                      uiOutput('printOrPlotODIWTeamPerfoverall'),
-                    #                                      column(7, offset=4,
-                    #                                             tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                    #                                             tags$h5((tags$i("Feb 6, 2021"))),
-                    #                                             tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                    #                                             tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                    #                                      )
-                    #                                    )
-                    #
-                    #                            )
-                    #
-                    #
-                    # )),
+                    tabPanel("ODI Women",navbarPage("GooglyPlusPlus - One Day International (ODI) Women",
+                                                    # Batsman tab
+                                                    tabPanel("ODI Women batsman",
+                                                             h4('Analyze ODI batsman performances'),
+                                                             sidebarPanel(
+                                                               selectInput('batsmanFuncODIW', 'Select function', batsmanFuncs),
+                                                               selectInput('batsmanODIW', 'Select batsman', ODIWBatsmen,selectize=FALSE, size=20),
+                                                             ),
+                                                             mainPanel(
+                                                               plotOutput('batsmanPlotODIW'),
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Jun 28, 2020"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                             )
+                                                    ),
+                                                    # Bowlers tab
+                                                    tabPanel("ODI Women bowlers",
+
+                                                             h4('ODI  bowler performances'),
+
+                                                             sidebarPanel(
+                                                               selectInput('bowlerFuncODIW', 'Select function', bowlerFuncs),
+                                                               selectInput('bowlerODIW', 'Select T20 bowler', ODIWBowlers,selectize=FALSE, size=20)
+
+
+                                                             ),
+                                                             mainPanel(
+                                                               plotOutput('bowlerPlotODIW'),
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Jun 28, 2020"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                             )
+                                                    ),
+                                                    tabPanel("ODI Womens  Match",
+                                                             h4('Analyze ODI Womens match'),
+                                                             sidebarPanel(
+                                                               selectInput('matchFuncODIW', 'Select match function', matchFuncs),
+                                                               selectInput('matchODIW', 'Select ODIW match ', ODIWMatches,selectize=FALSE, size=15),
+                                                               uiOutput("selectTeamODIW"),
+                                                               radioButtons("plotOrTableODIW", label = h4("Plot or table"),
+                                                                            choices = c("Plot" = 1, "Table" = 2),
+                                                                            selected = 1,inline=T)
+
+                                                             ),
+                                                             mainPanel(
+                                                               uiOutput("plotOrPrintODIWMatch"),
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Jun 28, 2020"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                             )
+                                                    ),
+                                                    # Analyze Head-to-Head Womens ODI  matches
+                                                    tabPanel("Head to head",
+                                                             h4('Head-to-head between Womens ODI teams'),
+                                                             sidebarPanel(
+                                                               selectInput('matches2TeamFuncODIW', 'Select function', matches2TeamsFuncs),
+                                                               selectInput('match2ODIW', 'Select matches', ODIWMatches2Teams,selectize=FALSE, size=13),
+                                                               uiOutput("selectTeam2ODIW"),
+                                                               radioButtons("plotOrTable1ODIW", label = h4("Plot or table"),
+                                                                            choices = c("Plot" = 1, "Table" = 2),
+                                                                            selected = 1,inline=T),
+                                                               radioButtons("repTypeODIW", label = h4("Report Type"),
+                                                                            choices = c("Summary" = 1, "Detailed" = 2),
+                                                                            selected = 1,inline=T)
+
+                                                             ),
+                                                             mainPanel(
+                                                               uiOutput("plotOrPrintODIWMatch2teams"),
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Jun 28, 2020"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                             )
+
+                                                    ),
+                                                    # Analyze ODI Women Team Overall Perf
+                                                    tabPanel("Overall Performance",
+                                                             h4("Analyze ODI Women team's overall performance"),
+                                                             sidebarPanel(
+                                                               selectInput('overallperfFuncODIW', 'Select function', teamOverallPerfFunc),
+                                                               selectInput('teamMatchesODIW', 'Select the team', ODIWTeamsAll,selectize=FALSE, size=13),
+                                                               uiOutput("RankODIW"),
+                                                               radioButtons("plotOrTable2ODIW", label = h4("Plot or table"),
+                                                                            choices = c("Plot" = 1, "Table" = 2),
+                                                                            selected = 1,inline=T),
+                                                               radioButtons("repType2ODIW", label = h4("Report Type"),
+                                                                            choices = c("Summary" = 1, "Detailed" = 2),
+                                                                            selected = 1,inline=T)
+                                                             ),
+                                                             mainPanel(
+                                                               uiOutput('printOrPlotODIWTeamPerfoverall'),
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Jun 28, 2020"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                             )
+
+                                                    )
+
+
+                    )),
 
                     tabPanel("About GooglyPlusPlus 2021",h3("GooglyPlusPlus 2021 - Analyzing ODI,T20 Players, teams and matches with plots and tables"),
                              p("This Shiny app is based on my R package 'yorkr'. In this Shiny app, I use  the

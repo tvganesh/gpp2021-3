@@ -29,8 +29,8 @@ source("NTButilities.R")
 source("PSLutilities.R")
 source("WBButilities.R")
 source("CPLutilities.R")
-#source("ODIMutilities.R")
-#source("ODIWutilities.R")
+source("ODIMutilities.R")
+source("ODIWutilities.R")
 source("analyzeBatsmen.R")
 source("analyzeBowlers.R")
 source("analyzeMatches.R")
@@ -1806,30 +1806,71 @@ shinyServer(function(input, output,session) {
 
 
   # Analyze and display batsmen plots
-  output$batsmanPlotCPL <- renderPlot({
-    analyzeBatsmen(input$batsmanCPL,input$batsmanFuncCPL, "CPL")
+  output$batsmanPlotsCPL <- renderPlot({
+    analyzeBatsmen(input$batsmanCPL,input$batsmanFuncCPL, "CPL",input$staticIntvCPL)
 
   })
+
+  output$batsmanPlotlyCPL <- renderPlotly({
+    analyzeBatsmen(input$batsmanCPL,input$batsmanFuncCPL, "CPL",input$staticIntvCPL)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotCPL <- renderUI({
+    if(input$staticIntvCPL == 1){
+      plotOutput("batsmanPlotsCPL")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncCPL =="Dismissals of batsman" || input$batsmanFuncCPL == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsCPL")
+      else
+        plotlyOutput("batsmanPlotlyCPL")
+    }
+
+  })
+
+
 
   # Analyze and display bowler plots
-  output$bowlerPlotCPL <- renderPlot({
-    analyzeBowlers(input$bowlerCPL,input$bowlerFuncCPL, "CPL")
+  output$bowlerPlotsCPL <- renderPlot({
+    analyzeBowlers(input$bowlerCPL,input$bowlerFuncCPL,"CPL",input$staticIntv1CPL)
+  })
+
+  output$bowlerPlotlyCPL <- renderPlotly({
+    analyzeBowlers(input$bowlerCPL,input$bowlerFuncCPL, "CPL",input$staticIntv1CPL)
+  })
+
+  output$bowlerPlotCPL <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsCPL")
+    }   else{
+      if(input$bowlerFuncCPL == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsCPL")
+      else
+        plotlyOutput("bowlerPlotlyCPL")
+    }
 
   })
 
-  ########################################  CPL T20 Match  #############################################
+
+  ######################################## CPL Match  #############################################
   # Analyze and display T20 Match plot
-  output$CPLMatchPlot <- renderPlot({
-    print("t20 plot")
+  output$CPLMatchPlots <- renderPlot({
     printOrPlotMatch(input, output,"CPL")
 
   })
 
-  # Analyze and display T20 Match table
+  output$CPLMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"CPL")
+
+  })
+
+  # Analyze and display CPL Match table
   output$CPLMatchPrint <- renderTable({
-    print("t20 print")
     a <- printOrPlotMatch(input, output,"CPL")
-    head(a)
     a
 
   })
@@ -1837,48 +1878,73 @@ shinyServer(function(input, output,session) {
   output$plotOrPrintCPLMatch <-  renderUI({
     # Check if output is a dataframe. If so, print
     if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"CPL"))){
-      print("Hello&&&&&&&&&&&&&&&")
       tableOutput("CPLMatchPrint")
     }
     else{ #Else plot
-      plotOutput("CPLMatchPlot")
+      if(input$plotOrTableCPL == 1){
+        plotOutput("CPLMatchPlots")
+      } else{
+        plotlyOutput("CPLMatchPlotly")
+      }
+
     }
 
   })
 
   #################################### CPL  Matches between 2 teams ######################
-  # Analyze Head to head confrontation of CPL T20  teams
+  # Analyze Head to head confrontation of CPL Mens teams
 
-  # Analyze and display CPL T20  Matches between 2 teams plot
-  output$CPLMatch2TeamsPlot <- renderPlot({
-    print("Women plot")
+  # Analyze and display CPL Matches between 2 teams plot
+  output$CPLMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"CPL")
+
+  })
+
+  output$CPLMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
     printOrPlotMatch2Teams(input, output,"CPL")
 
   })
 
   # Analyze and display CPL Match table
   output$CPLMatch2TeamsPrint <- renderTable({
-    print("Women table")
+    print("table")
     a <- printOrPlotMatch2Teams(input, output,"CPL")
     a
+    #a
   })
 
   # Output either a table or a plot
   output$plotOrPrintCPLMatch2teams <-  renderUI({
-    print("Women's match ")
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1CPL == 3){
+      plotlyOutput("CPLMatch2TeamsPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"CPL"))){
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"CPL"))){
       tableOutput("CPLMatch2TeamsPrint")
     }
     else{ #Else plot
-      plotOutput("CPLMatch2TeamsPlot")
+      if(input$plotOrTable1CPL == 1){
+        plotOutput("CPLMatch2TeamsPlots")
+      } else if(input$plotOrTable1CPL == 2){
+        plotlyOutput("CPLMatch2TeamsPlotly")
+      }
     }
 
   })
 
-  ################################ CPL T20  Teams's overall performance ##############################
-  # Analyze overall CPL  team performance plots
-  output$CPLTeamPerfOverallPlot <- renderPlot({
+
+
+  ################################ CPL Teams's overall performance ##############################
+  # Analyze overall CPL team performance plots
+  output$CPLTeamPerfOverallPlots <- renderPlot({
+    printOrPlotTeamPerfOverall(input, output,"CPL")
+
+  })
+
+  output$CPLTeamPerfOverallPlotly <- renderPlotly({
     printOrPlotTeamPerfOverall(input, output,"CPL")
 
   })
@@ -1889,16 +1955,24 @@ shinyServer(function(input, output,session) {
     a
 
   })
+
   # Output either a table or a plot
   output$printOrPlotCPLTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("CPLTeamPerfOverallPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"CPL"))){
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"CPL"))){
       tableOutput("CPLTeamPerfOverallPrint")
     }
     else{ #Else plot
-      plotOutput("CPLTeamPerfOverallPlot")
+      if(input$plotOrTable2CPL == 1){
+        plotOutput("CPLTeamPerfOverallPlots")
+      } else if(input$plotOrTable2CPL == 2){
+        plotlyOutput("CPLTeamPerfOverallPlotly")
+      }
     }
-
   })
 
 
