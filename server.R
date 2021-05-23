@@ -1606,30 +1606,69 @@ shinyServer(function(input, output,session) {
   ##########################################################################################
   # ODI Men
 
-  # Analyze and display batsmen plots
-  output$batsmanPlotODIM <- renderPlot({
-    analyzeBatsmen(input$batsmanODIM,input$batsmanFuncODIM, "ODIM")
+  output$batsmanPlotsODIM <- renderPlot({
+    analyzeBatsmen(input$batsmanODIM,input$batsmanFuncODIM, "ODIM",input$staticIntvODIM)
 
   })
+
+  output$batsmanPlotlyODIM <- renderPlotly({
+    analyzeBatsmen(input$batsmanODIM,input$batsmanFuncODIM, "ODIM",input$staticIntvODIM)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotODIM <- renderUI({
+    if(input$staticIntvODIM == 1){
+      plotOutput("batsmanPlotsODIM")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncODIM =="Dismissals of batsman" || input$batsmanFuncODIM == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsODIM")
+      else
+        plotlyOutput("batsmanPlotlyODIM")
+    }
+
+  })
+
+
 
   # Analyze and display bowler plots
-  output$bowlerPlotODIM <- renderPlot({
-    analyzeBowlers(input$bowlerODIM,input$bowlerFuncODIM, "ODIM")
+  output$bowlerPlotsODIM <- renderPlot({
+    analyzeBowlers(input$bowlerODIM,input$bowlerFuncODIM,"ODIM",input$staticIntv1ODIM)
   })
 
-  ########################################  ODI Men Match  #############################################
-  # Analyze and display ODI Men Match plot
-  output$ODIMMatchPlot <- renderPlot({
-    print("t20 plot")
+  output$bowlerPlotlyODIM <- renderPlotly({
+    analyzeBowlers(input$bowlerODIM,input$bowlerFuncODIM, "ODIM",input$staticIntv1ODIM)
+  })
+
+  output$bowlerPlotODIM <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsODIM")
+    }   else{
+      if(input$bowlerFuncODIM == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsODIM")
+      else
+        plotlyOutput("bowlerPlotlyODIM")
+    }
+
+  })
+
+
+  output$ODIMMatchPlots <- renderPlot({
     printOrPlotMatch(input, output,"ODIM")
 
   })
 
-  # Analyze and display ODI Men Match table
+  output$ODIMMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"ODIM")
+
+  })
+
+  # Analyze and display ODIM Match table
   output$ODIMMatchPrint <- renderTable({
-    print("t20 print")
     a <- printOrPlotMatch(input, output,"ODIM")
-    head(a)
     a
 
   })
@@ -1637,47 +1676,73 @@ shinyServer(function(input, output,session) {
   output$plotOrPrintODIMMatch <-  renderUI({
     # Check if output is a dataframe. If so, print
     if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"ODIM"))){
-      print("Hello&&&&&&&&&&&&&&&")
       tableOutput("ODIMMatchPrint")
     }
     else{ #Else plot
-      plotOutput("ODIMMatchPlot")
+      if(input$plotOrTableODIM == 1){
+        plotOutput("ODIMMatchPlots")
+      } else{
+        plotlyOutput("ODIMMatchPlotly")
+      }
+
     }
 
   })
 
-  # Analyze Head to head confrontation of ODI Men  teams
+  #################################### ODIM  Matches between 2 teams ######################
+  # Analyze Head to head confrontation of ODIM Mens teams
 
-  # Analyze and display ODI Men  Matches between 2 teams plot
-  output$ODIMMatch2TeamsPlot <- renderPlot({
-    print("Women plot")
+  # Analyze and display ODIM Matches between 2 teams plot
+  output$ODIMMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"ODIM")
+
+  })
+
+  output$ODIMMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
     printOrPlotMatch2Teams(input, output,"ODIM")
 
   })
 
   # Analyze and display ODIM Match table
   output$ODIMMatch2TeamsPrint <- renderTable({
-    print("Women table")
+    print("table")
     a <- printOrPlotMatch2Teams(input, output,"ODIM")
     a
+    #a
   })
 
   # Output either a table or a plot
   output$plotOrPrintODIMMatch2teams <-  renderUI({
-    print("Women's match ")
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1ODIM == 3){
+      plotlyOutput("ODIMMatch2TeamsPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"ODIM"))){
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"ODIM"))){
       tableOutput("ODIMMatch2TeamsPrint")
     }
     else{ #Else plot
-      plotOutput("ODIMMatch2TeamsPlot")
+      if(input$plotOrTable1ODIM == 1){
+        plotOutput("ODIMMatch2TeamsPlots")
+      } else if(input$plotOrTable1ODIM == 2){
+        plotlyOutput("ODIMMatch2TeamsPlotly")
+      }
     }
 
   })
 
-  ################################ ODI Men  Teams's overall performance ##############################
-  # Analyze overall ODIM  team performance plots
-  output$ODIMTeamPerfOverallPlot <- renderPlot({
+
+
+  ################################ ODIM Teams's overall performance ##############################
+  # Analyze overall ODIM team performance plots
+  output$ODIMTeamPerfOverallPlots <- renderPlot({
+    printOrPlotTeamPerfOverall(input, output,"ODIM")
+
+  })
+
+  output$ODIMTeamPerfOverallPlotly <- renderPlotly({
     printOrPlotTeamPerfOverall(input, output,"ODIM")
 
   })
@@ -1688,16 +1753,24 @@ shinyServer(function(input, output,session) {
     a
 
   })
+
   # Output either a table or a plot
   output$printOrPlotODIMTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("ODIMTeamPerfOverallPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"ODIM"))){
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"ODIM"))){
       tableOutput("ODIMTeamPerfOverallPrint")
     }
     else{ #Else plot
-      plotOutput("ODIMTeamPerfOverallPlot")
+      if(input$plotOrTable2ODIM == 1){
+        plotOutput("ODIMTeamPerfOverallPlots")
+      } else if(input$plotOrTable2ODIM == 2){
+        plotlyOutput("ODIMTeamPerfOverallPlotly")
+      }
     }
-
   })
 
 

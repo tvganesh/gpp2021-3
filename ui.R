@@ -1862,53 +1862,70 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                     ############################# ODI Men ################################
                     tabPanel("ODI Men",navbarPage("GooglyPlusPlus - One Day International (ODI) Men",
                                                    # Batsman tab
-                                                   tabPanel("ODI Men batsman",
-                                                            h4('Analyze ODI batsman performances'),
-                                                            sidebarPanel(
-                                                              selectInput('batsmanFuncODIM', 'Select function', batsmanFuncs),
-                                                              selectInput('batsmanODIM', 'Select batsman', ODIMBatsmen,selectize=FALSE, size=20),
-                                                            ),
-                                                            mainPanel(
-                                                              plotOutput('batsmanPlotODIM'),
-                                                              column(7, offset=4,
-                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                                     tags$h5((tags$i("Feb 6, 2021"))),
-                                                                     tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
-                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
-                                                              )
-                                                            )
-                                                   ),
+                                                  tabPanel("ODI Men batsman",
+                                                           h4('Analyze ODI Men batsman performances'),
+                                                           sidebarPanel(
+                                                             selectInput('batsmanFuncODIM', 'Select function', batsmanFuncs),
+                                                             selectInput('batsmanODIM', 'Select batsman', ODIMBatsmen,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntvODIM", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
+                                                           ),
+                                                           mainPanel(
+
+                                                             uiOutput('batsmanPlotODIM'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                    tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                             )
+                                                           )
+                                                  ),
                                                   # Bowlers tab
                                                   tabPanel("ODI Men bowlers",
 
-                                                           h4('ODI  bowler performances'),
+                                                           h4('Analyze ODI Men bowler performances'),
 
                                                            sidebarPanel(
                                                              selectInput('bowlerFuncODIM', 'Select function', bowlerFuncs),
-                                                             selectInput('bowlerODIM', 'Select T20 bowler', ODIMBowlers,selectize=FALSE, size=20)
+                                                             selectInput('bowlerODIM', 'Select bowler', ODIMBowlers,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntv1ODIM", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
 
 
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('bowlerPlotODIM'),
-                                                             column(7, offset=4,
+                                                             uiOutput('bowlerPlotODIM'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
-                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
                                                            )
 
                                                   ),
-                                                  tabPanel("ODI Mens  Match",
-                                                           h4('Analyze ODI Mens match'),
+                                                  tabPanel("ODI Men Match",
+                                                           h4('Analyze ODI Men match'),
                                                            sidebarPanel(
                                                              selectInput('matchFuncODIM', 'Select match function', matchFuncs),
-                                                             selectInput('matchODIM', 'Select ODIM match ', ODIMMatches,selectize=FALSE, size=15),
+                                                             selectInput('matchODIM', 'Select T20 match ', ODIMMatches,selectize=FALSE, size=15),
                                                              uiOutput("selectTeamODIM"),
-                                                             radioButtons("plotOrTableODIM", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T)
+                                                             radioButtons("plotOrTableODIM", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T)
 
                                                            ),
                                                            mainPanel(
@@ -1916,21 +1933,22 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              column(7, offset=4,
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
-                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
                                                            )
                                                   ),
-                                                  # Analyze Head-to-Head Mens ODI  matches
+
+                                                  # Analyze 2 ODI Men Teams men's  matches
                                                   tabPanel("Head to head",
-                                                           h4('Head-to-head between Mens ODI teams'),
+                                                           h4('Head-to-head between 2 ODI Men teams'),
                                                            sidebarPanel(
                                                              selectInput('matches2TeamFuncODIM', 'Select function', matches2TeamsFuncs),
                                                              selectInput('match2ODIM', 'Select matches', ODIMMatches2Teams,selectize=FALSE, size=13),
                                                              uiOutput("selectTeam2ODIM"),
-                                                             radioButtons("plotOrTable1ODIM", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                             radioButtons("plotOrTable1ODIM", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repTypeODIM", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
@@ -1938,10 +1956,15 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            ),
                                                            mainPanel(
                                                              uiOutput("plotOrPrintODIMMatch2teams"),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
-                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
                                                            )
@@ -1955,25 +1978,29 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              selectInput('teamMatchesODIM', 'Select the team', ODIMTeamsAll,selectize=FALSE, size=13),
                                                              uiOutput("RankODIM"),
                                                              radioButtons("plotOrTable2ODIM", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repType2ODIM", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
                                                            ),
                                                            mainPanel(
                                                              uiOutput('printOrPlotODIMTeamPerfoverall'),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                                    tags$h5((tags$i("Feb 6, 2021"))),
-                                                                    tags$a(href="https://cricsheet.org/", " Data source: Cricsheet"),
+                                                                    tags$h5((tags$i("Dec 14, 2020"))),
+                                                                    tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
                                                            )
 
                                                   )
-
-                                     )),
+                    )),
 
                     ############################# ODI Women ################################
                     tabPanel("ODI Women",navbarPage("GooglyPlusPlus - One Day International (ODI) Women",
