@@ -1777,30 +1777,69 @@ shinyServer(function(input, output,session) {
   ##########################################################################################
   # ODI Women
 
-  # Analyze and display batsmen plots
-  output$batsmanPlotODIW <- renderPlot({
-    analyzeBatsmen(input$batsmanODIW,input$batsmanFuncODIW, "ODIW")
+  output$batsmanPlotsODIW <- renderPlot({
+    analyzeBatsmen(input$batsmanODIW,input$batsmanFuncODIW, "ODIW",input$staticIntvODIW)
 
   })
+
+  output$batsmanPlotlyODIW <- renderPlotly({
+    analyzeBatsmen(input$batsmanODIW,input$batsmanFuncODIW, "ODIW",input$staticIntvODIW)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotODIW <- renderUI({
+    if(input$staticIntvODIW == 1){
+      plotOutput("batsmanPlotsODIW")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncODIW =="Dismissals of batsman" || input$batsmanFuncODIW == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsODIW")
+      else
+        plotlyOutput("batsmanPlotlyODIW")
+    }
+
+  })
+
+
 
   # Analyze and display bowler plots
-  output$bowlerPlotODIW <- renderPlot({
-    analyzeBowlers(input$bowlerODIW,input$bowlerFuncODIW, "ODIW")
+  output$bowlerPlotsODIW <- renderPlot({
+    analyzeBowlers(input$bowlerODIW,input$bowlerFuncODIW,"ODIW",input$staticIntv1ODIW)
   })
 
-  ########################################  ODI Women Match  #############################################
-  # Analyze and display ODI Women Match plot
-  output$ODIWMatchPlot <- renderPlot({
-    print("t20 plot")
+  output$bowlerPlotlyODIW <- renderPlotly({
+    analyzeBowlers(input$bowlerODIW,input$bowlerFuncODIW, "ODIW",input$staticIntv1ODIW)
+  })
+
+  output$bowlerPlotODIW <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsODIW")
+    }   else{
+      if(input$bowlerFuncODIW == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsODIW")
+      else
+        plotlyOutput("bowlerPlotlyODIW")
+    }
+
+  })
+
+
+  output$ODIWMatchPlots <- renderPlot({
     printOrPlotMatch(input, output,"ODIW")
 
   })
 
-  # Analyze and display ODI Women Match table
+  output$ODIWMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"ODIW")
+
+  })
+
+  # Analyze and display ODIW Match table
   output$ODIWMatchPrint <- renderTable({
-    print("t20 print")
     a <- printOrPlotMatch(input, output,"ODIW")
-    head(a)
     a
 
   })
@@ -1808,50 +1847,73 @@ shinyServer(function(input, output,session) {
   output$plotOrPrintODIWMatch <-  renderUI({
     # Check if output is a dataframe. If so, print
     if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"ODIW"))){
-      print("Hello&&&&&&&&&&&&&&&")
       tableOutput("ODIWMatchPrint")
     }
     else{ #Else plot
-      plotOutput("ODIWMatchPlot")
+      if(input$plotOrTableODIW == 1){
+        plotOutput("ODIWMatchPlots")
+      } else{
+        plotlyOutput("ODIWMatchPlotly")
+      }
+
     }
 
   })
 
+  #################################### ODIW  Matches between 2 teams ######################
+  # Analyze Head to head confrontation of ODIW Mens teams
 
-  ##########################################################################################
+  # Analyze and display ODIW Matches between 2 teams plot
+  output$ODIWMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"ODIW")
 
-  # Analyze Head to head confrontation of ODI Women  teams
+  })
 
-  # Analyze and display ODI Women  Matches between 2 teams plot
-  output$ODIWMatch2TeamsPlot <- renderPlot({
-    print("Women plot")
+  output$ODIWMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
     printOrPlotMatch2Teams(input, output,"ODIW")
 
   })
 
   # Analyze and display ODIW Match table
   output$ODIWMatch2TeamsPrint <- renderTable({
-    print("Women table")
+    print("table")
     a <- printOrPlotMatch2Teams(input, output,"ODIW")
     a
+    #a
   })
 
   # Output either a table or a plot
   output$plotOrPrintODIWMatch2teams <-  renderUI({
-    print("Women's match ")
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1ODIW == 3){
+      plotlyOutput("ODIWMatch2TeamsPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"ODIW"))){
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"ODIW"))){
       tableOutput("ODIWMatch2TeamsPrint")
     }
     else{ #Else plot
-      plotOutput("ODIWMatch2TeamsPlot")
+      if(input$plotOrTable1ODIW == 1){
+        plotOutput("ODIWMatch2TeamsPlots")
+      } else if(input$plotOrTable1ODIW == 2){
+        plotlyOutput("ODIWMatch2TeamsPlotly")
+      }
     }
 
   })
 
-  ################################ ODI Women  Teams's overall performance ##############################
-  # Analyze overall ODI Women  team performance plots
-  output$ODIWTeamPerfOverallPlot <- renderPlot({
+
+
+  ################################ ODIW Teams's overall performance ##############################
+  # Analyze overall ODIW team performance plots
+  output$ODIWTeamPerfOverallPlots <- renderPlot({
+    printOrPlotTeamPerfOverall(input, output,"ODIW")
+
+  })
+
+  output$ODIWTeamPerfOverallPlotly <- renderPlotly({
     printOrPlotTeamPerfOverall(input, output,"ODIW")
 
   })
@@ -1862,17 +1924,26 @@ shinyServer(function(input, output,session) {
     a
 
   })
+
   # Output either a table or a plot
   output$printOrPlotODIWTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("ODIWTeamPerfOverallPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"ODIW"))){
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"ODIW"))){
       tableOutput("ODIWTeamPerfOverallPrint")
     }
     else{ #Else plot
-      plotOutput("ODIWTeamPerfOverallPlot")
+      if(input$plotOrTable2ODIW == 1){
+        plotOutput("ODIWTeamPerfOverallPlots")
+      } else if(input$plotOrTable2ODIW == 2){
+        plotlyOutput("ODIWTeamPerfOverallPlotly")
+      }
     }
-
   })
+
 
 
   ############################################################Caribbean Premier League ##############################
