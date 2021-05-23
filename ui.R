@@ -949,6 +949,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
 
                     )),
                     ############################# Natwest T20 ################################
+                    ##########################################################################
                     tabPanel("NTB T20",navbarPage("GooglyPlusPlus - Natwest T20",
                                                   # Batsman tab
                                                   tabPanel("NTB T20 batsman",
@@ -956,10 +957,19 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            sidebarPanel(
                                                              selectInput('batsmanFuncNTB', 'Select function', batsmanFuncs),
                                                              selectInput('batsmanNTB', 'Select batsman', NTBBatsmen,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntvNTB", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('batsmanPlotNTB'),
-                                                             column(7, offset=4,
+
+                                                             uiOutput('batsmanPlotNTB'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -968,35 +978,44 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
                                                   ),
                                                   # Bowlers tab
-                                                  tabPanel("NTB bowlers",
+                                                  tabPanel("NTB T20 bowlers",
 
-                                                           h4('NTB bowler performances'),
+                                                           h4('Analyze NTB T20 bowler performances'),
 
                                                            sidebarPanel(
                                                              selectInput('bowlerFuncNTB', 'Select function', bowlerFuncs),
-                                                             selectInput('bowlerNTB', 'Select T20 bowler', NTBBowlers,selectize=FALSE, size=20)
+                                                             selectInput('bowlerNTB', 'Select bowler', NTBBowlers,selectize=FALSE, size=20),
+                                                             radioButtons("staticIntv1NTB", label = h4("Plot type"),
+                                                                          choices = c("interactive" = 2,"static" = 1 ),
+                                                                          selected = 2,inline=T)
 
 
                                                            ),
                                                            mainPanel(
-                                                             plotOutput('bowlerPlotNTB'),
-                                                             column(7, offset=4,
+                                                             uiOutput('bowlerPlotNTB'),
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )
                                                            )
+
                                                   ),
-                                                  tabPanel("NTB  Match",
+                                                  tabPanel("NTB T20 Match",
                                                            h4('Analyze NTB T20 match'),
                                                            sidebarPanel(
                                                              selectInput('matchFuncNTB', 'Select match function', matchFuncs),
-                                                             selectInput('matchNTB', 'Select NTB match ', NTBMatches,selectize=FALSE, size=15),
+                                                             selectInput('matchNTB', 'Select T20 match ', NTBMatches,selectize=FALSE, size=15),
                                                              uiOutput("selectTeamNTB"),
-                                                             radioButtons("plotOrTableNTB", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T)
+                                                             radioButtons("plotOrTableNTB", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T)
 
                                                            ),
                                                            mainPanel(
@@ -1009,16 +1028,17 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              )
                                                            )
                                                   ),
-                                                  # Analyze Head-to-Head NTB  matches
+
+                                                  # Analyze 2 NTB T20 Teams men's  matches
                                                   tabPanel("Head to head",
-                                                           h4('Head-to-head between NTB teams'),
+                                                           h4('Head-to-head between 2 NTB teams'),
                                                            sidebarPanel(
                                                              selectInput('matches2TeamFuncNTB', 'Select function', matches2TeamsFuncs),
                                                              selectInput('match2NTB', 'Select matches', NTBMatches2Teams,selectize=FALSE, size=13),
                                                              uiOutput("selectTeam2NTB"),
-                                                             radioButtons("plotOrTable1NTB", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                             radioButtons("plotOrTable1NTB", label = h4("Plot(static,interactive) or table"),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repTypeNTB", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
@@ -1026,7 +1046,12 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            ),
                                                            mainPanel(
                                                              uiOutput("plotOrPrintNTBMatch2teams"),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
                                                                     tags$h5((tags$i("Feb 6, 2021"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
@@ -1035,7 +1060,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                            )
 
                                                   ),
-                                                  # Analyze NTB T20 Team Overall Perf
+                                                  # Analyze NTB Team Overall Perf
                                                   tabPanel("Overall Performance",
                                                            h4("Analyze NTB team's overall performance"),
                                                            sidebarPanel(
@@ -1043,17 +1068,22 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                              selectInput('teamMatchesNTB', 'Select the team', NTBTeamsAll,selectize=FALSE, size=13),
                                                              uiOutput("RankNTB"),
                                                              radioButtons("plotOrTable2NTB", label = h4("Plot or table"),
-                                                                          choices = c("Plot" = 1, "Table" = 2),
-                                                                          selected = 1,inline=T),
+                                                                          choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                          selected = 2,inline=T),
                                                              radioButtons("repType2NTB", label = h4("Report Type"),
                                                                           choices = c("Summary" = 1, "Detailed" = 2),
                                                                           selected = 1,inline=T)
                                                            ),
                                                            mainPanel(
                                                              uiOutput('printOrPlotNTBTeamPerfoverall'),
-                                                             column(7, offset=4,
+                                                             column(12, offset=6,
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
+                                                                    br(),
                                                                     tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
-                                                                    tags$h5((tags$i("Feb 6, 2021"))),
+                                                                    tags$h5((tags$i("Dec 14, 2020"))),
                                                                     tags$h6("Data source Cricsheet: http://cricsheet.org/"),
                                                                     tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
                                                              )

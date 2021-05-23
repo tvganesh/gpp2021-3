@@ -938,32 +938,73 @@ shinyServer(function(input, output,session) {
 
     }
   })
-  ##########################################################################################
+  #########################################################Natwest T20 #####################################
+  ##########################################################################################################
   # Natwest T20
 
-  # Analyze and display batsmen plots
-  output$batsmanPlotNTB <- renderPlot({
-    analyzeBatsmen(input$batsmanNTB,input$batsmanFuncNTB, "NTB")
+  output$batsmanPlotsNTB <- renderPlot({
+    analyzeBatsmen(input$batsmanNTB,input$batsmanFuncNTB, "NTB",input$staticIntvNTB)
+
   })
+
+  output$batsmanPlotlyNTB <- renderPlotly({
+    analyzeBatsmen(input$batsmanNTB,input$batsmanFuncNTB, "NTB",input$staticIntvNTB)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotNTB <- renderUI({
+    if(input$staticIntvNTB == 1){
+      plotOutput("batsmanPlotsNTB")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncNTB =="Dismissals of batsman" || input$batsmanFuncNTB == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsNTB")
+      else
+        plotlyOutput("batsmanPlotlyNTB")
+    }
+
+  })
+
+
 
   # Analyze and display bowler plots
-  output$bowlerPlotNTB <- renderPlot({
-    analyzeBowlers(input$bowlerNTB,input$bowlerFuncNTB, "NTB")
+  output$bowlerPlotsNTB <- renderPlot({
+    analyzeBowlers(input$bowlerNTB,input$bowlerFuncNTB,"NTB",input$staticIntv1NTB)
   })
 
-  ########################################  NTB T20 Match  #############################################
-  # Analyze and display T20 Match plot
-  output$NTBMatchPlot <- renderPlot({
-    print("t20 plot")
+  output$bowlerPlotlyNTB <- renderPlotly({
+    analyzeBowlers(input$bowlerNTB,input$bowlerFuncNTB, "NTB",input$staticIntv1NTB)
+  })
+
+  output$bowlerPlotNTB <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsNTB")
+    }   else{
+      if(input$bowlerFuncNTB == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsNTB")
+      else
+        plotlyOutput("bowlerPlotlyNTB")
+    }
+
+  })
+
+
+  output$NTBMatchPlots <- renderPlot({
     printOrPlotMatch(input, output,"NTB")
 
   })
 
-  # Analyze and display T20 Match table
+  output$NTBMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"NTB")
+
+  })
+
+  # Analyze and display NTB Match table
   output$NTBMatchPrint <- renderTable({
-    print("t20 print")
     a <- printOrPlotMatch(input, output,"NTB")
-    head(a)
     a
 
   })
@@ -971,48 +1012,73 @@ shinyServer(function(input, output,session) {
   output$plotOrPrintNTBMatch <-  renderUI({
     # Check if output is a dataframe. If so, print
     if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"NTB"))){
-      print("Hello&&&&&&&&&&&&&&&")
       tableOutput("NTBMatchPrint")
     }
     else{ #Else plot
-      plotOutput("NTBMatchPlot")
+      if(input$plotOrTableNTB == 1){
+        plotOutput("NTBMatchPlots")
+      } else{
+        plotlyOutput("NTBMatchPlotly")
+      }
+
     }
 
   })
 
   #################################### NTB  Matches between 2 teams ######################
-  # Analyze Head to head confrontation of NTB T20  teams
+  # Analyze Head to head confrontation of NTB Mens teams
 
-  # Analyze and display NTB T20  Matches between 2 teams plot
-  output$NTBMatch2TeamsPlot <- renderPlot({
-    print("Women plot")
+  # Analyze and display NTB Matches between 2 teams plot
+  output$NTBMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"NTB")
+
+  })
+
+  output$NTBMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
     printOrPlotMatch2Teams(input, output,"NTB")
 
   })
 
   # Analyze and display NTB Match table
   output$NTBMatch2TeamsPrint <- renderTable({
-    print("Women table")
+    print("table")
     a <- printOrPlotMatch2Teams(input, output,"NTB")
     a
+    #a
   })
 
   # Output either a table or a plot
   output$plotOrPrintNTBMatch2teams <-  renderUI({
-    print("Women's match ")
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1NTB == 3){
+      plotlyOutput("NTBMatch2TeamsPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"NTB"))){
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"NTB"))){
       tableOutput("NTBMatch2TeamsPrint")
     }
     else{ #Else plot
-      plotOutput("NTBMatch2TeamsPlot")
+      if(input$plotOrTable1NTB == 1){
+        plotOutput("NTBMatch2TeamsPlots")
+      } else if(input$plotOrTable1NTB == 2){
+        plotlyOutput("NTBMatch2TeamsPlotly")
+      }
     }
 
   })
 
-  ################################ NTB T20  Teams's overall performance ##############################
-  # Analyze overall NTB  team performance plots
-  output$NTBTeamPerfOverallPlot <- renderPlot({
+
+
+  ################################ NTB Teams's overall performance ##############################
+  # Analyze overall NTB team performance plots
+  output$NTBTeamPerfOverallPlots <- renderPlot({
+    printOrPlotTeamPerfOverall(input, output,"NTB")
+
+  })
+
+  output$NTBTeamPerfOverallPlotly <- renderPlotly({
     printOrPlotTeamPerfOverall(input, output,"NTB")
 
   })
@@ -1023,16 +1089,24 @@ shinyServer(function(input, output,session) {
     a
 
   })
+
   # Output either a table or a plot
   output$printOrPlotNTBTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("NTBTeamPerfOverallPlotly")
+    }
     # Check if output is a dataframe. If so, print
-    if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"NTB"))){
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"NTB"))){
       tableOutput("NTBTeamPerfOverallPrint")
     }
     else{ #Else plot
-      plotOutput("NTBTeamPerfOverallPlot")
+      if(input$plotOrTable2NTB == 1){
+        plotOutput("NTBTeamPerfOverallPlots")
+      } else if(input$plotOrTable2NTB == 2){
+        plotlyOutput("NTBTeamPerfOverallPlotly")
+      }
     }
-
   })
 
   ################################ Rank NTB ##############################
