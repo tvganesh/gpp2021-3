@@ -220,6 +220,29 @@ CPLTeamsAll <- gsub(".RData","",a2)
 CPLTeamNames <- list("Antigua Hawksbills","Barbados Tridents","Guyana Amazon Warriors","Jamaica Tallawahs",
                        "St Kitts and Nevis Patriots","St Lucia Zouks","Trinbago Knight Riders")
 
+# #################### SSM ###########################################
+# ## SSM
+load("./ssm/ssmBattingBowlingDetails/SSMbatsmen.RData")
+SSMBatsmen <-ssmBatsmen
+cat("lengthbatsSSM=",length(SSMBatsmen),"\n")
+
+load("./ssm/ssmBattingBowlingDetails/SSMbowlers.RData")
+SSMBowlers <-ssmBowlers
+
+a <-list.files("./ssm/ssmMatches/")
+SSMMatches <- gsub(".RData","",a)
+cat("length SSM match=",length(SSMMatches),"\n")
+
+a1 <-list.files("./ssm/ssmMatches2Teams/")
+SSMMatches2Teams <- gsub(".RData","",a1)
+
+a2 <-list.files("./ssm/ssmAllMatchesAllTeams/")
+SSMTeamsAll <- gsub(".RData","",a2)
+
+# SSM Team names
+SSMTeamNames <- list("Auckland", "Canterbury", "Central Districts",
+          "Northern Districts", "Otago", "Wellington")
+
 
 # ############################################
 #ODI Men

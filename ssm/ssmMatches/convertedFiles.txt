@@ -1,0 +1,122 @@
+1118534.yaml:Auckland-Central Districts-2017-12-13.RData
+1118535.yaml:Canterbury-Otago-2017-12-14.RData
+1118537.yaml:Northern Districts-Auckland-2017-12-16.RData
+1118538.yaml:Central Districts-Canterbury-2017-12-17.RData
+1118540.yaml:Northern Districts-Wellington-2017-12-20.RData
+1118541.yaml:Canterbury-Central Districts-2017-12-22.RData
+1118542.yaml:Northern Districts-Otago-2017-12-23.RData
+1118543.yaml:Wellington-Auckland-2017-12-24.RData
+1118545.yaml:Otago-Canterbury-2017-12-26.RData
+1118546.yaml:Central Districts-Northern Districts-2017-12-27.RData
+1118548.yaml:Canterbury-Wellington-2017-12-28.RData
+1118549.yaml:Central Districts-Northern Districts-2017-12-30.RData
+1118550.yaml:Otago-Wellington-2017-12-31.RData
+1118551.yaml:Auckland-Canterbury-2018-01-01.RData
+1118552.yaml:Otago-Northern Districts-2018-01-02.RData
+1118555.yaml:Central Districts-Otago-2018-01-06.RData
+1118556.yaml:Auckland-Northern Districts-2018-01-07.RData
+1118557.yaml:Canterbury-Wellington-2018-01-07.RData
+1118558.yaml:Central Districts-Otago-2018-01-09.RData
+1118559.yaml:Canterbury-Auckland-2018-01-10.RData
+1118560.yaml:Central Districts-Wellington-2018-01-12.RData
+1118561.yaml:Canterbury-Northern Districts-2018-01-14.RData
+1118562.yaml:Central Districts-Wellington-2018-01-14.RData
+1118563.yaml:Auckland-Otago-2018-01-14.RData
+1132901.yaml:Central Districts-Auckland-2018-01-17.RData
+1132902.yaml:Central Districts-Northern Districts-2018-01-20.RData
+1160497.yaml:Northern Districts-Wellington-2018-12-22.RData
+1160500.yaml:Northern Districts-Central Districts-2018-12-27.RData
+1160501.yaml:Otago-Wellington-2018-12-28.RData
+1160502.yaml:Central Districts-Auckland-2018-12-29.RData
+1160503.yaml:Otago-Northern Districts-2018-12-30.RData
+1160504.yaml:Central Districts-Wellington-2018-12-31.RData
+1160505.yaml:Auckland-Canterbury-2019-01-01.RData
+1160506.yaml:Northern Districts-Auckland-2019-01-06.RData
+1160508.yaml:Wellington-Canterbury-2019-01-06.RData
+1160510.yaml:Central Districts-Otago-2019-01-10.RData
+1160511.yaml:Northern Districts-Wellington-2019-01-12.RData
+1160512.yaml:Auckland-Otago-2019-01-13.RData
+1160513.yaml:Canterbury-Central Districts-2019-01-13.RData
+1160514.yaml:Northern Districts-Canterbury-2019-01-16.RData
+1160515.yaml:Wellington-Auckland-2019-01-18.RData
+1160516.yaml:Central Districts-Canterbury-2019-01-19.RData
+1160517.yaml:Auckland-Otago-2019-01-20.RData
+1160518.yaml:Northern Districts-Central Districts-2019-01-25.RData
+1160519.yaml:Canterbury-Auckland-2019-01-26.RData
+1160520.yaml:Wellington-Otago-2019-01-27.RData
+1160521.yaml:Central Districts-Wellington-2019-02-01.RData
+1160522.yaml:Canterbury-Otago-2019-02-02.RData
+1160523.yaml:Northern Districts-Auckland-2019-02-02.RData
+1160524.yaml:Northern Districts-Otago-2019-02-09.RData
+1160525.yaml:Wellington-Canterbury-2019-02-09.RData
+1160526.yaml:Central Districts-Auckland-2019-02-09.RData
+1160527.yaml:Central Districts-Auckland-2019-02-15.RData
+1160528.yaml:Central Districts-Northern Districts-2019-02-17.RData
+1197741.yaml:Central Districts-Northern Districts-2019-12-13.RData
+1197742.yaml:Otago-Auckland-2019-12-14.RData
+1197743.yaml:Canterbury-Wellington-2019-12-15.RData
+1197744.yaml:Otago-Northern Districts-2019-12-16.RData
+1197745.yaml:Canterbury-Auckland-2019-12-17.RData
+1197746.yaml:Central Districts-Wellington-2019-12-18.RData
+1197747.yaml:Otago-Auckland-2019-12-19.RData
+1197748.yaml:Central Districts-Northern Districts-2019-12-20.RData
+1197749.yaml:Wellington-Otago-2019-12-21.RData
+1197750.yaml:Northern Districts-Auckland-2019-12-22.RData
+1197751.yaml:Canterbury-Central Districts-2019-12-23.RData
+1197752.yaml:Wellington-Central Districts-2019-12-27.RData
+1197753.yaml:Auckland-Central Districts-2019-12-28.RData
+1197754.yaml:Northern Districts-Otago-2019-12-29.RData
+1197755.yaml:Auckland-Wellington-2019-12-30.RData
+1197756.yaml:Otago-Canterbury-2019-12-30.RData
+1197757.yaml:Canterbury-Auckland-2020-01-01.RData
+1197758.yaml:Wellington-Northern Districts-2020-01-01.RData
+1197759.yaml:Otago-Central Districts-2020-01-02.RData
+1197760.yaml:Wellington-Northern Districts-2020-01-03.RData
+1197761.yaml:Central Districts-Auckland-2020-01-04.RData
+1197762.yaml:Northern Districts-Canterbury-2020-01-05.RData
+1197763.yaml:Otago-Wellington-2020-01-06.RData
+1197764.yaml:Central Districts-Canterbury-2020-01-07.RData
+1197765.yaml:Canterbury-Wellington-2020-01-09.RData
+1197766.yaml:Auckland-Northern Districts-2020-01-10.RData
+1197767.yaml:Central Districts-Otago-2020-01-11.RData
+1197768.yaml:Canterbury-Northern Districts-2020-01-12.RData
+1197769.yaml:Wellington-Auckland-2020-01-12.RData
+1197770.yaml:Otago-Canterbury-2020-01-14.RData
+1197771.yaml:Otago-Auckland-2020-01-17.RData
+1197772.yaml:Wellington-Auckland-2020-01-19.RData
+1233997.yaml:Auckland-Wellington-2020-12-24.RData
+1233998.yaml:Wellington-Central Districts-2020-12-27.RData
+1233999.yaml:Otago-Auckland-2020-12-28.RData
+1234000.yaml:Canterbury-Otago-2020-12-29.RData
+1234001.yaml:Central Districts-Northern Districts-2020-12-30.RData
+1234002.yaml:Central Districts-Auckland-2020-12-31.RData
+1234003.yaml:Northern Districts-Wellington-2021-01-01.RData
+1234004.yaml:Northern Districts-Otago-2021-01-02.RData
+1234005.yaml:Auckland-Canterbury-2021-01-03.RData
+1234006.yaml:Central Districts-Northern Districts-2021-01-04.RData
+1234007.yaml:Central Districts-Otago-2021-01-08.RData
+1234008.yaml:Wellington-Northern Districts-2021-01-09.RData
+1234009.yaml:Central Districts-Canterbury-2021-01-10.RData
+1234010.yaml:Canterbury-Auckland-2021-01-11.RData
+1234011.yaml:Otago-Wellington-2021-01-14.RData
+1234012.yaml:Northern Districts-Canterbury-2021-01-15.RData
+1234013.yaml:Wellington-Canterbury-2021-01-16.RData
+1234014.yaml:Auckland-Northern Districts-2021-01-17.RData
+1234015.yaml:Otago-Central Districts-2021-01-18.RData
+1234016.yaml:Canterbury-Northern Districts-2021-01-21.RData
+1234017.yaml:Auckland-Central Districts-2021-01-23.RData
+1234018.yaml:Otago-Wellington-2021-01-24.RData
+1234019.yaml:Canterbury-Wellington-2021-01-25.RData
+1234020.yaml:Auckland-Northern Districts-2021-01-29.RData
+1234021.yaml:Otago-Canterbury-2021-01-30.RData
+1234022.yaml:Central Districts-Wellington-2021-01-31.RData
+1234023.yaml:Auckland-Otago-2021-02-01.RData
+1234024.yaml:Central Districts-Canterbury-2021-02-05.RData
+1234025.yaml:Northern Districts-Otago-2021-02-06.RData
+1234026.yaml:Wellington-Auckland-2021-02-07.RData
+1234027.yaml:Central Districts-Canterbury-2021-02-11.RData
+1234028.yaml:Canterbury-Wellington-2021-02-13.RData
+580784.yaml:Wellington-Otago-2013-01-20.RData
+665677.yaml:Auckland-Otago-2014-01-03.RData
+665701.yaml:Northern Districts-Canterbury-2014-01-17.RData
+665703.yaml:Otago-Northern Districts-2014-01-18.RData

@@ -89,6 +89,13 @@ analyzeTeamPerfOverall <- function(matches,matchFunc,team,rankV,plotOrTable2,rep
     load(CPLmatch)
     matchesDF <- matches
     print(repType2)
+  } else if (t20type == "SSM"){
+    dir1="./ssm/ssmAllMatchesAllTeams/"
+    # Check and get the team indices of SSM teams in which the bowler has played
+    SSMmatch <- paste("./ssm/ssmAllMatchesAllTeams/", matches,".RData",sep="")
+    load(SSMmatch)
+    matchesDF <- matches
+    print(repType2)
   }
 
     if(plotOrTable2 == 1 || plotOrTable2 == 2 ){

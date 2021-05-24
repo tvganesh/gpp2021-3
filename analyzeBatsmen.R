@@ -10,7 +10,7 @@
 
 # Analyze IPL batsmen
 analyzeBatsmen <- function(batsman,func, t20type="IPL",staticIntv=1) {
-
+    print("*************************************************************************************************")
 
     # Return when name is NULL at start
     if(is.null(batsman))
@@ -89,6 +89,13 @@ analyzeBatsmen <- function(batsman,func, t20type="IPL",staticIntv=1) {
         i <- getCPLTeamIndex(batsman, dir1)
         # Get the team names
         teamNames <- getCPLTeams(i)
+
+    } else if (t20type == "SSM"){
+        print("SSM")
+        dir1="./ssm/ssmBattingBowlingDetails/"
+        i <- getSSMTeamIndex(batsman, dir1)
+        # Get the team names
+        teamNames <- getSSMTeams(i)
 
     }
 

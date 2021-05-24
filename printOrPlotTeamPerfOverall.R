@@ -109,6 +109,16 @@ printOrPlotTeamPerfOverall <- function(input,output,t20type="IPL"){
                                input$plotOrTable2CPL,
                                input$repType2CPL,t20type)
 
+    } else if (t20type == "SSM"){
+        output$RankSSM = renderUI({
+            selectInput('rankSSM', 'Choose the rank',choices=rankValues,selected=input$rankSSM)
+        })
+        print(input$teamMatchesSSM)
+        n <- strsplit(as.character(input$teamMatchesSSM),"-")
+        analyzeTeamPerfOverall(input$teamMatchesSSM,input$overallperfFuncSSM,n[[1]][2],input$rankSSM,
+                               input$plotOrTable2SSM,
+                               input$repType2SSM,t20type)
+
     }
 
 }

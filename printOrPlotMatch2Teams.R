@@ -33,6 +33,8 @@ printOrPlotMatch2Teams <- function(input,output,t20type="IPL"){
         p <- strsplit(as.character(input$match2ODIW),"-")
     else if (t20type == "CPL")
         p <- strsplit(as.character(input$match2CPL),"-")
+    else if (t20type == "SSM")
+        p <- strsplit(as.character(input$match2SSM),"-")
 
     teams2 <- c(p[[1]][1],p[[1]][2])
 
@@ -103,6 +105,12 @@ printOrPlotMatch2Teams <- function(input,output,t20type="IPL"){
         })
         otherTeam = setdiff(teams2,input$team2CPL)
         cat("T20 team=",input$team2CPL,"other team=",otherTeam)
+    } else if (t20type == "SSM"){
+        output$selectTeam2SSM <- renderUI({
+            selectInput('team2SSM', 'Choose team',choices=teams2,selected=input$team2SSM)
+        })
+        otherTeam = setdiff(teams2,input$team2SSM)
+        cat("T20 team=",input$team2SSM,"other team=",otherTeam)
     }
 
 
@@ -138,8 +146,9 @@ printOrPlotMatch2Teams <- function(input,output,t20type="IPL"){
     else if (t20type == "CPL")
         a <- analyzeMatches2Teams(input$match2CPL,input$matches2TeamFuncCPL,input$plotOrTable1CPL,
                                   input$repTypeCPL,input$team2CPL,otherTeam,t20type)
-
-
+    else if (t20type == "SSM")
+        a <- analyzeMatches2Teams(input$match2SSM,input$matches2TeamFuncSSM,input$plotOrTable1SSM,
+                                  input$repTypeSSM,input$team2SSM,otherTeam,t20type)
     print("Output oa anlsy2")
     head(a)
     cat('Exiting print2',dim(a))

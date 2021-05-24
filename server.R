@@ -29,6 +29,7 @@ source("NTButilities.R")
 source("PSLutilities.R")
 source("WBButilities.R")
 source("CPLutilities.R")
+source("SSMutilities.R")
 source("ODIMutilities.R")
 source("ODIWutilities.R")
 source("analyzeBatsmen.R")
@@ -2170,4 +2171,237 @@ shinyServer(function(input, output,session) {
   })
 
 
+  ###############################################Suoer Smash League ###########################################
+  ##########################################################################################################
+  # Super Smash League
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotsSSM <- renderPlot({
+    analyzeBatsmen(input$batsmanSSM,input$batsmanFuncSSM, "SSM",input$staticIntvSSM)
+
+  })
+
+  output$batsmanPlotlySSM <- renderPlotly({
+    analyzeBatsmen(input$batsmanSSM,input$batsmanFuncSSM, "SSM",input$staticIntvSSM)
+
+  })
+
+
+  # Analyze and display batsmen plots
+  output$batsmanPlotSSM <- renderUI({
+    if(input$staticIntvSSM == 1){
+      plotOutput("batsmanPlotsSSM")
+    }
+    else{
+      #Plotly does not support polar coordinates required for dismissals, hence this will be normal ggplot (Kludge!!)
+      if(input$batsmanFuncSSM =="Dismissals of batsman" || input$batsmanFuncSSM == "Predict Runs of batsman")
+        plotOutput("batsmanPlotsSSM")
+      else
+        plotlyOutput("batsmanPlotlySSM")
+    }
+
+  })
+
+
+
+  # Analyze and display bowler plots
+  output$bowlerPlotsSSM <- renderPlot({
+    analyzeBowlers(input$bowlerSSM,input$bowlerFuncSSM,"SSM",input$staticIntv1SSM)
+  })
+
+  output$bowlerPlotlySSM <- renderPlotly({
+    analyzeBowlers(input$bowlerSSM,input$bowlerFuncSSM, "SSM",input$staticIntv1SSM)
+  })
+
+  output$bowlerPlotSSM <- renderUI({
+    if(input$staticIntv1 == 1){
+      plotOutput("bowlerPlotsSSM")
+    }   else{
+      if(input$bowlerFuncSSM == "Bowler's wickets prediction")
+        plotOutput("bowlerPlotsSSM")
+      else
+        plotlyOutput("bowlerPlotlySSM")
+    }
+
+  })
+
+
+  ######################################## SSM Match  #############################################
+  # Analyze and display T20 Match plot
+  output$SSMMatchPlots <- renderPlot({
+    printOrPlotMatch(input, output,"SSM")
+
+  })
+
+  output$SSMMatchPlotly <- renderPlotly({
+    printOrPlotMatch(input, output,"SSM")
+
+  })
+
+  # Analyze and display SSM Match table
+  output$SSMMatchPrint <- renderTable({
+    a <- printOrPlotMatch(input, output,"SSM")
+    a
+
+  })
+  # Output either a table or a plot
+  output$plotOrPrintSSMMatch <-  renderUI({
+    # Check if output is a dataframe. If so, print
+    if(is.data.frame(scorecard <- printOrPlotMatch(input, output,"SSM"))){
+      tableOutput("SSMMatchPrint")
+    }
+    else{ #Else plot
+      if(input$plotOrTableSSM == 1){
+        plotOutput("SSMMatchPlots")
+      } else{
+        plotlyOutput("SSMMatchPlotly")
+      }
+
+    }
+
+  })
+
+  #################################### SSM  Matches between 2 teams ######################
+  # Analyze Head to head confrontation of SSM Mens teams
+
+  # Analyze and display SSM Matches between 2 teams plot
+  output$SSMMatch2TeamsPlots <- renderPlot({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"SSM")
+
+  })
+
+  output$SSMMatch2TeamsPlotly <- renderPlotly({
+    print("plot")
+    printOrPlotMatch2Teams(input, output,"SSM")
+
+  })
+
+  # Analyze and display SSM Match table
+  output$SSMMatch2TeamsPrint <- renderTable({
+    print("table")
+    a <- printOrPlotMatch2Teams(input, output,"SSM")
+    a
+    #a
+  })
+
+  # Output either a table or a plot
+  output$plotOrPrintSSMMatch2teams <-  renderUI({
+
+    if(input$matches2TeamFunc == "Win Loss Head-to-head All Matches" && input$plotOrTable1SSM == 3){
+      plotlyOutput("SSMMatch2TeamsPlotly")
+    }
+    # Check if output is a dataframe. If so, print
+    else if(is.data.frame(scorecard <- printOrPlotMatch2Teams(input, output,"SSM"))){
+      tableOutput("SSMMatch2TeamsPrint")
+    }
+    else{ #Else plot
+      if(input$plotOrTable1SSM == 1){
+        plotOutput("SSMMatch2TeamsPlots")
+      } else if(input$plotOrTable1SSM == 2){
+        plotlyOutput("SSMMatch2TeamsPlotly")
+      }
+    }
+
+  })
+
+
+
+  ################################ SSM Teams's overall performance ##############################
+  # Analyze overall SSM team performance plots
+  output$SSMTeamPerfOverallPlots <- renderPlot({
+    printOrPlotTeamPerfOverall(input, output,"SSM")
+
+  })
+
+  output$SSMTeamPerfOverallPlotly <- renderPlotly({
+    printOrPlotTeamPerfOverall(input, output,"SSM")
+
+  })
+
+  # Analyze and display IPL Match table
+  output$SSMTeamPerfOverallPrint <- renderTable({
+    a <- printOrPlotTeamPerfOverall(input, output,"SSM")
+    a
+
+  })
+
+  # Output either a table or a plot
+  output$printOrPlotSSMTeamPerfoverall <-  renderUI({
+
+    if(input$overallperfFunc == "Win Loss Team vs All Opposition" && input$plotOrTable2 == 3){
+      plotlyOutput("SSMTeamPerfOverallPlotly")
+    }
+    # Check if output is a dataframe. If so, print
+    else  if(is.data.frame(scorecard <- printOrPlotTeamPerfOverall(input, output,"SSM"))){
+      tableOutput("SSMTeamPerfOverallPrint")
+    }
+    else{ #Else plot
+      if(input$plotOrTable2SSM == 1){
+        plotOutput("SSMTeamPerfOverallPlots")
+      } else if(input$plotOrTable2SSM == 2){
+        plotlyOutput("SSMTeamPerfOverallPlotly")
+      }
+    }
+  })
+
+
+  ################################ Rank SSM ##############################
+
+
+  # Display ranks
+  observeEvent(input$yearSelectedSSM,{
+    updateSliderInput(session, "minMatchesSSM", max = helper1(SSMTeamNames,input$yearSelectedSSM,"./ssm/ssmBattingBowlingDetails")[[4]],value = helper1(SSMTeamNames,input$yearSelectedSSM,"./ssm/ssmBattingBowlingDetails")[[4]]- 8)
+  })
+
+  # Analyze and display SSM Match table
+  output$SSMRankBatsmenPrint <- renderTable({
+    Sys.sleep(1.5)
+    plot(runif(10))
+    a <- rankPlayers(input, output,"SSM","batsmen")
+    head(a,20)
+  })
+
+  # Output either a table or a plot
+  output$rankSSMBatsmen <-  renderUI({
+    # Check if output is a dataframe. If so, print
+    if(is.data.frame(a <- rankPlayers(input, output,"SSM","batsmen"))){
+      tableOutput("SSMRankBatsmenPrint")
+
+    }
+  })
+
+  ########################################
+  # Rank SSM Bowlers
+  observeEvent(input$yearSelected1SSM,{
+    updateSliderInput(session, "minMatches1SSM", max = helper3(SSMTeamNames,input$yearSelected1SSM,"./ssm/ssmBattingBowlingDetails")[[4]],value = helper3(SSMTeamNames,input$yearSelected1SSM,"./ssm/ssmBattingBowlingDetails")[[4]]- 8)
+  })
+
+  # Analyze and display SSM Match table
+  output$SSMRankBowlersPrint <- renderTable({
+    Sys.sleep(1.5)
+    plot(runif(10))
+    a <- rankPlayers(input, output,"SSM","bowlers")
+    head(a,20)
+  })
+
+  # Output either a table or a plot
+  output$rankSSMBowlers <-  renderUI({
+    # Check if output is a dataframe. If so, print
+
+    if(is.data.frame(a <- rankPlayers(input, output,"SSM","bowlers"))){
+      tableOutput("SSMRankBowlersPrint")
+
+    }
+  })
+
+
+
+
 })
+
+
+
+
+
+

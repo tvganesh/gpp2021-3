@@ -1859,6 +1859,236 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                   )
                     )),
 
+
+                    ############################# Super Smash  T20 ################################
+                    ##############################################################################
+                    tabPanel("SSM T20",navbarPage("GooglyPlusPlus - Super Smash T20",
+                                                  # Batsman tab
+                                                  tabPanel("SSM T20 batsman",
+                                                           h4('Analyze SSM T20 batsman performances'),
+                                                           sidebarPanel(
+                                                               selectInput('batsmanFuncSSM', 'Select function', batsmanFuncs),
+                                                               selectInput('batsmanSSM', 'Select batsman', SSMBatsmen,selectize=FALSE, size=20),
+                                                               radioButtons("staticIntvSSM", label = h4("Plot type"),
+                                                                            choices = c("interactive" = 2,"static" = 1 ),
+                                                                            selected = 2,inline=T)
+                                                           ),
+                                                           mainPanel(
+
+                                                               uiOutput('batsmanPlotSSM'),
+                                                               column(12, offset=6,
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Feb 6, 2021"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                           )
+                                                  ),
+                                                  # Bowlers tab
+                                                  tabPanel("SSM T20 bowlers",
+
+                                                           h4('Analyze SSM T20 bowler performances'),
+
+                                                           sidebarPanel(
+                                                               selectInput('bowlerFuncSSM', 'Select function', bowlerFuncs),
+                                                               selectInput('bowlerSSM', 'Select bowler', SSMBowlers,selectize=FALSE, size=20),
+                                                               radioButtons("staticIntv1SSM", label = h4("Plot type"),
+                                                                            choices = c("interactive" = 2,"static" = 1 ),
+                                                                            selected = 2,inline=T)
+
+
+                                                           ),
+                                                           mainPanel(
+                                                               uiOutput('bowlerPlotSSM'),
+                                                               column(12, offset=6,
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Feb 6, 2021"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                           )
+
+                                                  ),
+                                                  tabPanel("SSM T20 Match",
+                                                           h4('Analyze SSM T20 match'),
+                                                           sidebarPanel(
+                                                               selectInput('matchFuncSSM', 'Select match function', matchFuncs),
+                                                               selectInput('matchSSM', 'Select T20 match ', SSMMatches,selectize=FALSE, size=15),
+                                                               uiOutput("selectTeamSSM"),
+                                                               radioButtons("plotOrTableSSM", label = h4("Plot(static,interactive) or table"),
+                                                                            choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                            selected = 2,inline=T)
+
+                                                           ),
+                                                           mainPanel(
+                                                               uiOutput("plotOrPrintSSMMatch"),
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Feb 6, 2021"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                           )
+                                                  ),
+
+                                                  # Analyze 2 SSM T20 Teams men's  matches
+                                                  tabPanel("Head to head",
+                                                           h4('Head-to-head between 2 SSM teams'),
+                                                           sidebarPanel(
+                                                               selectInput('matches2TeamFuncSSM', 'Select function', matches2TeamsFuncs),
+                                                               selectInput('match2SSM', 'Select matches', SSMMatches2Teams,selectize=FALSE, size=13),
+                                                               uiOutput("selectTeam2SSM"),
+                                                               radioButtons("plotOrTable1SSM", label = h4("Plot(static,interactive) or table"),
+                                                                            choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                            selected = 2,inline=T),
+                                                               radioButtons("repTypeSSM", label = h4("Report Type"),
+                                                                            choices = c("Summary" = 1, "Detailed" = 2),
+                                                                            selected = 1,inline=T)
+
+                                                           ),
+                                                           mainPanel(
+                                                               uiOutput("plotOrPrintSSMMatch2teams"),
+                                                               column(12, offset=6,
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Feb 6, 2021"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                           )
+
+                                                  ),
+                                                  # Analyze SSM Team Overall Perf
+                                                  tabPanel("Overall Performance",
+                                                           h4("Analyze SSM team's overall performance"),
+                                                           sidebarPanel(
+                                                               selectInput('overallperfFuncSSM', 'Select function', teamOverallPerfFunc),
+                                                               selectInput('teamMatchesSSM', 'Select the team', SSMTeamsAll,selectize=FALSE, size=13),
+                                                               uiOutput("RankSSM"),
+                                                               radioButtons("plotOrTable2SSM", label = h4("Plot or table"),
+                                                                            choices = c("Plot(interactive)" = 2, "Plot(static)" = 1, "Table" = 3),
+                                                                            selected = 2,inline=T),
+                                                               radioButtons("repType2SSM", label = h4("Report Type"),
+                                                                            choices = c("Summary" = 1, "Detailed" = 2),
+                                                                            selected = 1,inline=T)
+                                                           ),
+                                                           mainPanel(
+                                                               uiOutput('printOrPlotSSMTeamPerfoverall'),
+                                                               column(12, offset=6,
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      br(),
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Dec 14, 2020"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                           )
+
+                                                  ),
+                                                  # Rank SSM Players tab
+                                                  tabPanel("Rank  SSM Batsmen",
+
+                                                           h4('Rank  SSM Batsmen '),
+
+                                                           sidebarPanel(
+                                                               tags$head( tags$style( type = "text/css", '
+                                                .js-irs-32 .irs-line-mid{
+                                                  background: #428bca ;
+                                                  border: 1px solid #428bca ;
+                                                }
+                                                .js-irs-32 .irs-line-right{
+                                                  background: #428bca ;
+                                                }
+                                                .js-irs-32 .irs-bar {
+                                                  background: linear-gradient(to bottom, #DDD -50%, #FFF 150%);
+                                                  border-top: 1px solid #CCC ;
+                                                  border-bottom: 1px solid #CCC ;
+                                                }
+                                                .js-irs-32 .irs-bar-edge {
+                                                  background: inherit ;
+                                                  border: inherit ;
+                                                }
+                                              ')),
+
+                                                               sliderInput("yearSelectedSSM", "Since year",min = (helper(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[1]])-1, max = (helper(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[2]]), value = (helper(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[1]])),
+                                                               sliderInput("minMatchesSSM", "Matches played",min = (helper(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[3]]), max = (helper(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[4]]), value = 0),
+                                                               uiOutput("ModeSSM")
+
+                                                           ),
+                                                           mainPanel(
+                                                               shinycssloaders::withSpinner(
+                                                                   uiOutput('rankSSMBatsmen'),
+                                                               ),
+
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Feb 6, 2021"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                           )
+                                                  ),
+                                                  # Rank SSM Bowlers tab
+                                                  tabPanel("Rank SSM Bowlers",
+
+                                                           h4('Rank SSM Bowlers '),
+
+                                                           sidebarPanel(
+                                                               tags$head( tags$style( type = "text/css", '
+                                                    .js-irs-34 .irs-line-mid{
+                                                      background: #428bca ;
+                                                      border: 1px solid #428bca ;
+                                                    }
+                                                    .js-irs-34 .irs-line-right{
+                                                      background: #428bca ;
+                                                    }
+                                                    .js-irs-34 .irs-bar {
+                                                      background: linear-gradient(to bottom, #DDD -50%, #FFF 150%);
+                                                      border-top: 1px solid #CCC ;
+                                                      border-bottom: 1px solid #CCC ;
+                                                    }
+                                                    .js-irs-34 .irs-bar-edge {
+                                                      background: inherit ;
+                                                      border: inherit ;
+                                                    }
+                                                  ')),
+
+                                                               sliderInput("yearSelected1SSM", "Since year",min = (helper2(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[1]])-1, max = (helper2(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[2]]), value = (helper2(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[1]])),
+                                                               sliderInput("minMatches1SSM", "Matches played",min = (helper2(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[3]]), max = (helper2(SSMTeamNames,"./ssm/ssmBattingBowlingDetails")[[4]]), value = 0),
+                                                               uiOutput("Mode1SSM")
+                                                           ),
+                                                           mainPanel(
+                                                               shinycssloaders::withSpinner(
+                                                                   uiOutput('rankSSMBowlers'),
+                                                               ),
+                                                               column(7, offset=4,
+                                                                      tags$h5((tags$i("Designed and developed by Tinniam V Ganesh"))),
+                                                                      tags$h5((tags$i("Feb 6, 2021"))),
+                                                                      tags$h6("Data source Cricsheet: http://cricsheet.org/"),
+                                                                      tags$a(href="https://cran.r-project.org/web/packages/yorkr/index.html", " Based on R package yorkr")
+                                                               )
+                                                           )
+                                                  )
+                    )),
+
+
                     ############################# ODI Men ################################
                     tabPanel("ODI Men",navbarPage("GooglyPlusPlus - One Day International (ODI) Men",
                                                    # Batsman tab

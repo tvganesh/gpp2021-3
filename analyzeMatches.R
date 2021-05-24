@@ -72,6 +72,11 @@ analyzeMatches <- function(match,matchFunc,plotOrTable,team,opposition,t20type) 
         cat("analymatch=",getwd())
         load(CPLmatch)
         matchDF <- overs
+    } else if(t20type == "SSM"){
+        SSMmatch <- paste("./ssm/ssmMatches/", match,".RData",sep="")
+        cat("analymatch=",getwd())
+        load(SSMmatch)
+        matchDF <- overs
     }
 
     cat("dim(match=",dim(matchDF),"\n")

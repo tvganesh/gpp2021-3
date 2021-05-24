@@ -97,7 +97,15 @@ analyzeBowlers <- function(bowler,func, t20type="IPL",staticIntv1=1) {
       i <- getCPLTeamIndex_bowler(bowler, dir1)
       # Get the team names
       teamNames <- getCPLTeams(i)
+    } else if(t20type == "SSM"){
+      dir1="./ssm/ssmBattingBowlingDetails/"
+      dir2="./ssm/ssmMatches"
+      # Check and get the team indices of IPL teams in which the batsman has played
+      i <- getSSMTeamIndex_bowler(bowler, dir1)
+      # Get the team names
+      teamNames <- getSSMTeams(i)
     }
+
 
 
     bowlerDF <- NULL
