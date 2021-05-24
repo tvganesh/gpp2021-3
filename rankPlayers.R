@@ -90,6 +90,16 @@ rankPlayers <- function(input,output,type="IPL",player="batsmen") {
       selectInput('wicketsOverERCPL', 'Mode1',choices=wicketsVsER,selected=input$wicketsOverERCPL)
     })
 
+  } else if (type == "SSM"){
+    print("SSM")
+    output$ModeSSM <- renderUI({
+      selectInput('runsOverSRSSM', 'Mode',choices=runsVsSR,selected=input$runsOverSRSSM)
+    })
+
+    output$Mode1SSM <- renderUI({
+      selectInput('wicketsOverERSSM', 'Mode1',choices=wicketsVsER,selected=input$wicketsOverERSSM)
+    })
+
   }
 
   cat("Rank players year selected=",input$yearSelected1,"input$minMatches1=", input$minMatches1,"input$wicketsOverER=",input$wicketsOverER)
@@ -151,6 +161,13 @@ rankPlayers <- function(input,output,type="IPL",player="batsmen") {
       a <- rankT20Batsmen(CPLTeamNames,"./cpl/cplBattingBowlingDetails",input$minMatchesCPL,input$yearSelectedCPL,input$runsOverSRCPL)
     } else if (player =="bowlers"){
       a <-rankT20Bowlers(CPLTeamNames,"./cpl/cplBattingBowlingDetails",input$minMatches1CPL, input$yearSelected1CPL,input$wicketsOverERCPL)
+
+    }
+  } else if (type ==  "SSM"){
+    if(player=="batsmen"){
+      a <- rankT20Batsmen(SSMTeamNames,"./ssm/ssmBattingBowlingDetails",input$minMatchesSSM,input$yearSelectedSSM,input$runsOverSRSSM)
+    } else if (player =="bowlers"){
+      a <-rankT20Bowlers(SSMTeamNames,"./ssm/ssmBattingBowlingDetails",input$minMatches1SSM, input$yearSelected1SSM,input$wicketsOverERSSM)
 
     }
   }
