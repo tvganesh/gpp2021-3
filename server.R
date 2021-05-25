@@ -450,7 +450,7 @@ shinyServer(function(input, output,session) {
 
 
   observeEvent(input$yearSelectedT20M,{
-    updateSliderInput(session, "minMatchesT20M", max = helper1(T20MTeamNames,input$yearSelectedT20M,"./t20/t20BattingBowlingDetails")[[4]],value = helper1(T20MTeamNames,input$yearSelectedT20M,"./t20/t20BattingBowlingDetails")[[4]]- 8)
+    updateSliderInput(session, "minMatchesT20M", max = helper1(T20MTeamNames,input$yearSelectedT20M,"./t20/t20BattingBowlingDetails")[[4]],value = helper1(T20MTeamNames,input$yearSelectedT20M,"./t20/t20BattingBowlingDetails")[[4]]- 18)
   })
 
   # Analyze and display T20M Match table
@@ -896,7 +896,7 @@ shinyServer(function(input, output,session) {
 
   # Display ranks
   observeEvent(input$yearSelectedBBL,{
-    updateSliderInput(session, "minMatchesBBL", max = helper1(BBLTeamNames,input$yearSelectedBBL,"./bbl/bblBattingBowlingDetails")[[4]],value = helper1(BBLTeamNames,input$yearSelectedBBL,"./bbl/bblBattingBowlingDetails")[[4]]- 8)
+    updateSliderInput(session, "minMatchesBBL", max = helper1(BBLTeamNames,input$yearSelectedBBL,"./bbl/bblBattingBowlingDetails")[[4]],value = helper1(BBLTeamNames,input$yearSelectedBBL,"./bbl/bblBattingBowlingDetails")[[4]]- 15)
   })
 
   # Analyze and display BBL Match table
@@ -1116,7 +1116,7 @@ shinyServer(function(input, output,session) {
 
   # Display ranks
   observeEvent(input$yearSelectedNTB,{
-    updateSliderInput(session, "minMatchesNTB", max = helper1(NTBTeamNames,input$yearSelectedNTB,"./ntb/ntbBattingBowlingDetails")[[4]],value = helper1(NTBTeamNames,input$yearSelectedNTB,"./ntb/ntbBattingBowlingDetails")[[4]]- 3)
+    updateSliderInput(session, "minMatchesNTB", max = helper1(NTBTeamNames,input$yearSelectedNTB,"./ntb/ntbBattingBowlingDetails")[[4]],value = helper1(NTBTeamNames,input$yearSelectedNTB,"./ntb/ntbBattingBowlingDetails")[[4]]- 12)
   })
 
   # Analyze and display NTB Match table
@@ -2126,7 +2126,7 @@ shinyServer(function(input, output,session) {
 
   # Display ranks
   observeEvent(input$yearSelectedCPL,{
-    updateSliderInput(session, "minMatchesCPL", max = helper1(CPLTeamNames,input$yearSelectedCPL,"./cpl/cplBattingBowlingDetails")[[4]],value = helper1(CPLTeamNames,input$yearSelectedCPL,"./cpl/cplBattingBowlingDetails")[[4]]- 8)
+    updateSliderInput(session, "minMatchesCPL", max = helper1(CPLTeamNames,input$yearSelectedCPL,"./cpl/cplBattingBowlingDetails")[[4]],value = helper1(CPLTeamNames,input$yearSelectedCPL,"./cpl/cplBattingBowlingDetails")[[4]]- 20)
   })
 
   # Analyze and display CPL Match table

@@ -170,8 +170,8 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                                         )
 
                                                                ),
-                                                               # Rank IPL Batsmen tab
-                                                               tabPanel("Rank IPL Batsmen",
+                                            # Rank IPL Batsmen tab
+                                            tabPanel("Rank IPL Batsmen",
 
                                                                         h4('Rank IPL Batsmen'),
 
@@ -195,7 +195,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                 border: inherit ;
                                               }
                                             ')),
-                                                                          sliderInput("yearSelected", "Since year",min = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[1]])-1, max = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[2]]), value = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[1]])),
+                                                                          sliderInput("yearSelected", "Since year",min = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[1]])-1, max = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[2]]), value = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[1]]) +3),
                                                                           sliderInput("minMatches", "Matches played",min = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[3]]), max = (helper(IPLTeamNames,"./ipl/iplBattingBowlingDetails")[[4]]), value = 0),
                                                                           uiOutput("Mode")
 
@@ -1343,7 +1343,7 @@ shinyUI(fluidPage(theme = shinytheme("readable"),
                                                 }
                                               ')),
 
-                                                             sliderInput("yearSelectedPSL", "Since year",min = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[1]])-1, max = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[2]]), value = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[1]])),
+                                                             sliderInput("yearSelectedPSL", "Since year",min = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[1]])-1, max = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[2]]), value = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[1]])+ 2),
                                                              sliderInput("minMatchesPSL", "Matches played",min = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[3]]), max = (helper(PSLTeamNames,"./psl/pslBattingBowlingDetails")[[4]]), value = 0),
                                                              uiOutput("ModePSL")
 

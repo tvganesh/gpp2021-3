@@ -64,7 +64,7 @@ analyzeMatches2Teams <- function(match2,matchFunc,plotOrTable1,repType, team,opp
         matchesDF <- matches
 
     } else if (t20type == "ODIM"){
-        dir1="./odi/odiMenMatches2Teams"
+        dir1="./odi/odiMatches2Teams"
         ODIMmatch <- paste("./odi/odiMatches2Teams/", match2,".RData",sep="")
         cat("ODIM2=",getwd(),"\n")
         load(ODIMmatch)
